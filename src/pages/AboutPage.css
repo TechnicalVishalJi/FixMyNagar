@@ -18,12 +18,8 @@
 /* Hero Section */
 .about-hero {
   background: linear-gradient(135deg, #f9f9f9, #fff);
-  padding: 6rem 0;
+  padding: 2rem 0;
   text-align: center;
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .hero-content {
@@ -32,23 +28,23 @@
 }
 
 .hero-content h1 {
-  font-size: 4rem;
+  font-size: 2.5rem;
   font-weight: bold;
   color: #000;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   line-height: 1.2;
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
+  font-size: 1.125rem;
   color: #333;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   line-height: 1.6;
   font-weight: 500;
 }
 
 .hero-description {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: #666;
   line-height: 1.6;
   max-width: 600px;
@@ -72,6 +68,9 @@ section:nth-child(even) {
   margin-bottom: 2rem;
 }
 
+.mission-section .section-header {
+  gap: 0;
+}
 section h2 {
   font-size: 2.5rem;
   font-weight: bold;
@@ -229,13 +228,14 @@ section h2 {
 .team-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .team-member {
+  width: 100%;
   text-align: center;
   background-color: #fff;
-  padding: 2rem;
+  padding: 2rem 1rem;
   border-radius: 1rem;
   border: 1px solid #e5e5e5;
 }
@@ -392,6 +392,14 @@ section h2 {
 
 /* Desktop Styles */
 @media (min-width: 768px) {
+  .about-hero {
+    padding: 6rem 0;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .hero-content h1 {
     font-size: 5rem;
   }
@@ -417,7 +425,7 @@ section h2 {
   }
 
   .team-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .impact-stats {

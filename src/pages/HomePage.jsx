@@ -124,7 +124,7 @@ export default function HomePage() {
       <Navbar />
 
       {/* Desktop Hero Section */}
-      <div className="hero-section">
+      <div id="heroSection" className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">FixMyNagar</h1>
           <p className="hero-subtitle">

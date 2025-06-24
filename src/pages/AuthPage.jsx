@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import Navbar from "../components/Navbar"
 import "./AuthPage.css"
 
 export default function AuthPage() {
@@ -19,7 +18,7 @@ export default function AuthPage() {
 
   return (
     <div className="auth-page">
-      <Navbar />
+
       {/* Mobile View */}
       <div className="mobile-auth">
         <div className="auth-container">
@@ -32,8 +31,8 @@ export default function AuthPage() {
 
           {/* Header */}
           <div className="auth-header">
-            <h1>{isLogin ? "Welcome back" : "Create your free account"}</h1>
-            {!isLogin && <p>No credit card required. Cancel anytime.</p>}
+            <h1>{isLogin ? "Welcome back" : "Create your account"}</h1>
+            {!isLogin && <p>Join the community</p>}
           </div>
 
           {/* Form */}
@@ -86,7 +85,7 @@ export default function AuthPage() {
 
           {/* Terms */}
           <p className="terms-text">
-            By continuing, you agree to Mobbin's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+            By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
           </p>
 
           {/* Toggle Login/Signup */}
@@ -96,17 +95,6 @@ export default function AuthPage() {
               {isLogin ? "Sign up" : "Log in"}
             </button>
           </p>
-
-          {/* Trusted By */}
-          <div className="trusted-section">
-            <p className="trusted-title">Trusted by teams at</p>
-            <div className="trusted-companies">
-              <span>headspace</span>
-              <span>airbnb</span>
-              <span>Revolut</span>
-              <span>duolingo</span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -124,8 +112,8 @@ export default function AuthPage() {
 
             {/* Header */}
             <div className="desktop-auth-header">
-              <h1>{isLogin ? "Welcome back" : "Create your free account"}</h1>
-              {!isLogin && <p>No credit card required. Cancel anytime.</p>}
+              <h1>{isLogin ? "Welcome back" : "Create your account"}</h1>
+              {!isLogin && <p>Join the Community</p>}
             </div>
 
             {/* Form */}
@@ -178,7 +166,7 @@ export default function AuthPage() {
 
             {/* Terms */}
             <p className="desktop-terms-text">
-              By continuing, you agree to Mobbin's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+              By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
             </p>
 
             {/* Toggle Login/Signup */}
@@ -196,17 +184,6 @@ export default function AuthPage() {
           <div className="branding-content">
             <h2>Join thousands of teams</h2>
             <p>Connect with your community, report issues, and make a difference together.</p>
-
-            {/* Trusted By */}
-            <div className="desktop-trusted-section">
-              <p>Trusted by teams at</p>
-              <div className="desktop-trusted-companies">
-                <span>headspace</span>
-                <span>airbnb</span>
-                <span>Revolut</span>
-                <span>duolingo</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>

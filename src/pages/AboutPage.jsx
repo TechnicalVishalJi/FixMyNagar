@@ -33,8 +33,8 @@ export default function AboutPage() {
         <section className="mission-section">
           <div className="container">
             <div className="section-header">
-              <Target size={32} />
-              <h2>Our Mission</h2>
+              <Target size={35} style={{transform:"translate(0px, -14px)"}}/>
+              <h2>ur Mission</h2>
             </div>
             <p className="mission-text">
               At FixMyNagar, we believe everyone deserves a safer, cleaner, and well-maintained city. Our mission is to
@@ -168,27 +168,29 @@ export default function AboutPage() {
               <div className="team-member">
                 <div className="member-avatar">VS</div>
                 <h3>Vishal Singh</h3>
-                <p className="member-role">Founder</p>
                 <p className="member-bio">AI specialist & full-stack developer</p>
               </div>
               <div className="team-member">
-                <div className="member-avatar">TM</div>
-                <h3>Team Member</h3>
-                <p className="member-role">Co-Founder</p>
-                <p className="member-bio">Community outreach & UX lead</p>
+                <div className="member-avatar">PG</div>
+                <h3>Payal Goswami</h3>
+                <p className="member-bio">Full Stack Developer</p>
               </div>
               <div className="team-member">
                 <div className="member-avatar">TL</div>
-                <h3>Tech Lead</h3>
-                <p className="member-role">Technical Lead</p>
-                <p className="member-bio">Geolocation & backend specialist</p>
+                <h3>Aditya Pratap Singh</h3>
+                <p className="member-bio">Machine Learning</p>
+              </div>
+              <div className="team-member">
+                <div className="member-avatar">AS</div>
+                <h3>Aditi Sharma</h3>
+                <p className="member-bio">Frontend Developer</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Impact Section */}
-        <section className="impact-section">
+        {/* <section className="impact-section">
           <div className="container">
             <h2>Early Impact</h2>
             <div className="impact-stats">
@@ -221,7 +223,7 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* CTA Section */}
         <section className="cta-section">
@@ -230,7 +232,7 @@ export default function AboutPage() {
             <p>Together, we can build more responsive cities.</p>
             <div className="cta-actions">
               <div className="cta-item">
-                <h3>Download the web app today</h3>
+                <h3>Join the web app today</h3>
                 <p>Start reporting issues in your area</p>
               </div>
               <div className="cta-item">

@@ -47,7 +47,7 @@ export default function ContactPage() {
                   </div>
                   <div className="contact-details">
                     <h3>Email</h3>
-                    <p>contact@fixmynagar.org</p>
+                    <p>fixmynagar@example.com</p>
                   </div>
                 </div>
 
@@ -57,7 +57,7 @@ export default function ContactPage() {
                   </div>
                   <div className="contact-details">
                     <h3>Phone</h3>
-                    <p>+91 98765 43210</p>
+                    <p>+91 12345 67890</p>
                   </div>
                 </div>
 
@@ -68,9 +68,9 @@ export default function ContactPage() {
                   <div className="contact-details">
                     <h3>Address</h3>
                     <p>
-                      Tech Hub, Innovation District
+                      123 Vijay Nagar
                       <br />
-                      Bangalore, Karnataka 560001
+                      Ghaziabad, India
                     </p>
                   </div>
                 </div>

@@ -103,10 +103,10 @@
 
 .email-input {
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   background-color: #f3f4f6;
   border: none;
-  border-radius: 1rem;
+  border-radius: 50px;
   color: #000;
   font-size: 1rem;
   margin-bottom: 1.5rem;
@@ -192,6 +192,7 @@
 .desktop-auth {
   display: none;
   width: 100%;
+  min-height: 100vh;
 }
 
 .desktop-form-side {
@@ -303,10 +304,10 @@
 
 .desktop-email-input {
   width: 100%;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   background-color: #f3f4f6;
   border: none;
-  border-radius: 1rem;
+  border-radius: 50px;
   color: #000;
   font-size: 1.125rem;
   margin-bottom: 1.5rem;
