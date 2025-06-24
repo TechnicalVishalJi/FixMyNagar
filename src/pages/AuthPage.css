@@ -1,0 +1,434 @@
+.auth-page {
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+/* Mobile View */
+.mobile-auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  min-height: 100vh;
+}
+
+.auth-container {
+  max-width: 20rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo-icon {
+  width: 4rem;
+  height: 4rem;
+  background-color: #000;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.logo-icon span {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+  color: #666;
+}
+
+.auth-form {
+  margin-bottom: 1.5rem;
+}
+
+.google-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 9999px;
+  background-color: #fff;
+  color: #000;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 1.5rem;
+}
+
+.google-button:hover {
+  background-color: #f9f9f9;
+}
+
+.divider {
+  position: relative;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: #d1d5db;
+}
+
+.divider-text {
+  padding: 0 0.5rem;
+  background-color: #f9f9f9;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.email-input {
+  width: 100%;
+  padding: 1rem;
+  background-color: #f3f4f6;
+  border: none;
+  border-radius: 1rem;
+  color: #000;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.email-input::placeholder {
+  color: #666;
+}
+
+.email-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #000;
+}
+
+.continue-button {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.continue-button:hover {
+  background-color: #333;
+}
+
+.terms-text {
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.terms-text a {
+  color: #000;
+  text-decoration: underline;
+}
+
+.toggle-text {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.toggle-button {
+  color: #000;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.trusted-section {
+  text-align: center;
+}
+
+.trusted-title {
+  color: #999;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.trusted-companies {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  opacity: 0.6;
+}
+
+.trusted-companies span {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Desktop View */
+.desktop-auth {
+  display: none;
+  width: 100%;
+}
+
+.desktop-form-side {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem;
+  background-color: #fff;
+}
+
+.desktop-auth-container {
+  max-width: 28rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.desktop-logo-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.desktop-logo-icon {
+  width: 5rem;
+  height: 5rem;
+  background-color: #000;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.desktop-logo-icon span {
+  color: #fff;
+  font-size: 1.875rem;
+  font-weight: bold;
+}
+
+.auth-logo-image {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+  filter: invert(1);
+}
+
+.desktop-auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.desktop-auth-header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 0.75rem;
+}
+
+.desktop-auth-header p {
+  color: #666;
+  font-size: 1.125rem;
+}
+
+.desktop-auth-form {
+  margin-bottom: 1.5rem;
+}
+
+.desktop-google-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 9999px;
+  background-color: #fff;
+  color: #000;
+  font-weight: 500;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 1.5rem;
+}
+
+.desktop-google-button:hover {
+  background-color: #f9f9f9;
+}
+
+.desktop-divider {
+  position: relative;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.desktop-divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: #d1d5db;
+}
+
+.desktop-divider-text {
+  padding: 0 0.5rem;
+  background-color: #fff;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.desktop-email-input {
+  width: 100%;
+  padding: 1.5rem;
+  background-color: #f3f4f6;
+  border: none;
+  border-radius: 1rem;
+  color: #000;
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+}
+
+.desktop-email-input::placeholder {
+  color: #666;
+}
+
+.desktop-email-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #000;
+}
+
+.desktop-continue-button {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.desktop-continue-button:hover {
+  background-color: #333;
+}
+
+.desktop-terms-text {
+  font-size: 0.875rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.desktop-terms-text a {
+  color: #000;
+  text-decoration: underline;
+}
+
+.desktop-toggle-text {
+  text-align: center;
+  color: #666;
+}
+
+.desktop-toggle-button {
+  color: #000;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.desktop-branding-side {
+  width: 50%;
+  background: linear-gradient(135deg, #1f2937, #000);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  padding: 3rem;
+}
+
+.branding-content {
+  text-align: center;
+  max-width: 28rem;
+}
+
+.branding-content h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.branding-content > p {
+  font-size: 1.25rem;
+  color: #d1d5db;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.desktop-trusted-section {
+  padding-top: 2rem;
+}
+
+.desktop-trusted-section > p {
+  color: #9ca3af;
+  margin-bottom: 1rem;
+}
+
+.desktop-trusted-companies {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  opacity: 0.8;
+}
+
+.desktop-trusted-companies span {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.auth-logo-image-desktop {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+  filter: invert(1);
+}
+
+/* Desktop Media Query */
+@media (min-width: 768px) {
+  .mobile-auth {
+    display: none;
+  }
+
+  .desktop-auth {
+    display: flex;
+  }
+}
