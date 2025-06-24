@@ -6,8 +6,16 @@
 }
 
 .comment-box.desktop {
-  margin-top: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: #fff;
+  border-radius: 1rem;
   animation: slideDown 0.3s ease-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .comment-box.mobile {

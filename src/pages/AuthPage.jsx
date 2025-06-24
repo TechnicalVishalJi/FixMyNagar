@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Navbar from "../components/Navbar"
 import "./AuthPage.css"
 
 export default function AuthPage() {
@@ -18,6 +19,7 @@ export default function AuthPage() {
 
   return (
     <div className="auth-page">
+      <Navbar />
       {/* Mobile View */}
       <div className="mobile-auth">
         <div className="auth-container">

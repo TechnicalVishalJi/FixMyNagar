@@ -1,63 +1,15 @@
 "use client"
 
-import { useState } from "react"
+import { Target, Users, Lightbulb, Shield, CheckCircle, Building, MapPin, Wrench } from "lucide-react"
 import { Link } from "react-router-dom"
-import { Menu, X, Target, Users, Lightbulb, Shield, CheckCircle } from "lucide-react"
 import Footer from "../components/Footer"
+import Navbar from "../components/Navbar"
 import "./AboutPage.css"
 
-const menuItems = ["Home", "About", "Contact"]
-
 export default function AboutPage() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev)
-  }
-
   return (
     <div className="about-page">
-      {/* Navigation Bar */}
-      <nav className="navbar">
-        <div className="navbar-content">
-          <div className="logo">
-            <img src="/src/assets/logo.png" alt="Logo" className="logo-image" />
-          </div>
-
-          <div className="desktop-menu">
-            {menuItems.map((item) => (
-              <Link key={item} to={item === "Home" ? "/" : `/${item.toLowerCase()}`} className="nav-link">
-                {item}
-              </Link>
-            ))}
-            <Link to="/auth" className="login-button">
-              Login
-            </Link>
-          </div>
-
-          <button onClick={toggleMenu} className="hamburger" aria-label="Toggle menu">
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        <div className={`mobile-menu ${isMenuOpen ? "open" : ""}`}>
-          <div className="mobile-menu-content">
-            {menuItems.map((item) => (
-              <Link
-                key={item}
-                to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                className="mobile-nav-link"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item}
-              </Link>
-            ))}
-            <Link to="/auth" className="mobile-login-button" onClick={() => setIsMenuOpen(false)}>
-              Login
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* About Content */}
       <div className="about-content">
@@ -65,8 +17,14 @@ export default function AboutPage() {
         <div className="about-hero">
           <div className="container">
             <div className="hero-content">
-              <h1>🏙️ About Us – FixMyNagar</h1>
-              <p>Empowering citizens to build safer, cleaner, and well-maintained cities through collective action</p>
+              <h1>About FixMyNagar</h1>
+              <p className="hero-subtitle">
+                Empowering citizens to build safer, cleaner, and well-maintained cities through collective action
+              </p>
+              <p className="hero-description">
+                We believe everyone deserves a city that works for them. Join us in creating responsive urban
+                communities.
+              </p>
             </div>
           </div>
         </div>
@@ -117,35 +75,35 @@ export default function AboutPage() {
               <div className="step-item">
                 <div className="step-number">1</div>
                 <div className="step-content">
-                  <h3>📸 Capture & Report</h3>
+                  <h3>Capture & Report</h3>
                   <p>Upload a photo & location of an issue in seconds—no forms, no hassle.</p>
                 </div>
               </div>
               <div className="step-item">
                 <div className="step-number">2</div>
                 <div className="step-content">
-                  <h3>🤖 Smart Classification</h3>
+                  <h3>Smart Classification</h3>
                   <p>Our AI identifies the category (e.g., road damage, sanitation, lighting).</p>
                 </div>
               </div>
               <div className="step-item">
                 <div className="step-number">3</div>
                 <div className="step-content">
-                  <h3>🗺️ Community Map</h3>
+                  <h3>Community Map</h3>
                   <p>View reported issues in your neighborhood, upvote concerns you share.</p>
                 </div>
               </div>
               <div className="step-item">
                 <div className="step-number">4</div>
                 <div className="step-content">
-                  <h3>📊 Real-Time Tracking</h3>
+                  <h3>Real-Time Tracking</h3>
                   <p>Authorities mark issues "Pending", "In Progress", or "Resolved".</p>
                 </div>
               </div>
               <div className="step-item">
                 <div className="step-number">5</div>
                 <div className="step-content">
-                  <h3>📈 Escalation & Transparency</h3>
+                  <h3>Escalation & Transparency</h3>
                   <p>Popular issues auto-escalate to local management bodies, keeping you informed.</p>
                 </div>
               </div>
@@ -235,21 +193,27 @@ export default function AboutPage() {
             <h2>Early Impact</h2>
             <div className="impact-stats">
               <div className="stat-item">
-                <div className="stat-icon">✅</div>
+                <div className="stat-icon">
+                  <Building size={32} />
+                </div>
                 <div className="stat-content">
                   <h3>Authority Integration</h3>
                   <p>Successfully integrated with local ward authorities</p>
                 </div>
               </div>
               <div className="stat-item">
-                <div className="stat-icon">📍</div>
+                <div className="stat-icon">
+                  <MapPin size={32} />
+                </div>
                 <div className="stat-content">
                   <h3>Community Reports</h3>
                   <p>Over 500+ community reports logged and tracked</p>
                 </div>
               </div>
               <div className="stat-item">
-                <div className="stat-icon">🔧</div>
+                <div className="stat-icon">
+                  <Wrench size={32} />
+                </div>
                 <div className="stat-content">
                   <h3>Issues Resolved</h3>
                   <p>Several local issues resolved within days</p>
@@ -266,19 +230,19 @@ export default function AboutPage() {
             <p>Together, we can build more responsive cities.</p>
             <div className="cta-actions">
               <div className="cta-item">
-                <h3>📱 Download the web app today</h3>
+                <h3>Download the web app today</h3>
                 <p>Start reporting issues in your area</p>
               </div>
               <div className="cta-item">
-                <h3>📍 Report issues in your area</h3>
+                <h3>Report issues in your area</h3>
                 <p>Make your voice heard in your community</p>
               </div>
               <div className="cta-item">
-                <h3>🤝 Engage with your community</h3>
+                <h3>Engage with your community</h3>
                 <p>Support and upvote important issues</p>
               </div>
               <div className="cta-item">
-                <h3>🏙️ Partner with us</h3>
+                <h3>Partner with us</h3>
                 <p>Bring FixMyNagar to your city</p>
               </div>
             </div>

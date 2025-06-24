@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { CheckCircle, Clock, MessageCircle, ChevronUp, Filter } from "lucide-react"
+import CommentBox from "../components/CommentBox"
 import "./AdminPage.css"
 
 const mockPosts = [
@@ -76,6 +77,16 @@ const mockPosts = [
 export default function AdminPage() {
   const [posts, setPosts] = useState(mockPosts)
   const [filter, setFilter] = useState("all")
+  const [openComments, setOpenComments] = useState({})
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   const handleUpvote = (postId) => {
     setPosts((prevPosts) =>
@@ -104,6 +115,13 @@ export default function AdminPage() {
     )
   }
 
+  const toggleComments = (postId) => {
+    setOpenComments((prev) => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }))
+  }
+
   const filteredPosts = posts.filter((post) => {
     if (filter === "all") return true
     return post.status === filter
@@ -114,6 +132,7 @@ export default function AdminPage() {
 
   return (
     <div className="admin-page">
+
       {/* Header */}
       <div className="admin-header">
         <div className="container">
@@ -207,7 +226,7 @@ export default function AdminPage() {
                     <span>{post.upvotes}</span>
                   </button>
 
-                  <button className="admin-action-button comment">
+                  <button className="admin-action-button comment" onClick={() => toggleComments(post.id)}>
                     <MessageCircle size={16} />
                     <span>{post.comments}</span>
                   </button>
@@ -218,6 +237,13 @@ export default function AdminPage() {
                   Mark as {post.status === "resolved" ? "Unresolved" : "Resolved"}
                 </button>
               </div>
+              {openComments[post.id] && (
+                <CommentBox
+                  isOpen={openComments[post.id]}
+                  onClose={() => toggleComments(post.id)}
+                  isMobile={isMobile}
+                />
+              )}
             </div>
           ))}
         </div>

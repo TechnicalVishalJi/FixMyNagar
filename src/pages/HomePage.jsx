@@ -1,8 +1,11 @@
 "use client"
-import { Link } from 'react-router-dom';
-import { useState } from "react"
-import { Menu, X, MessageCircle, ChevronUp, Flag, CheckCircle, Clock } from "lucide-react"
+
+import { useState, useEffect } from "react"
+import { MessageCircle, ChevronUp, Flag, CheckCircle, Clock } from "lucide-react"
 import Footer from "../components/Footer"
+import Navbar from "../components/Navbar"
+import ReportIssueModal from "../components/ReportIssueModal"
+import CommentBox from "../components/CommentBox"
 import "./HomePage.css"
 
 const mockPosts = [
@@ -68,15 +71,19 @@ const mockPosts = [
   },
 ]
 
-const menuItems = ["Home", "About", "Contact"]
-
 export default function HomePage() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [posts, setPosts] = useState(mockPosts)
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false)
+  const [openComments, setOpenComments] = useState({})
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
 
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev)
-  }
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   const handleUpvote = (postId) => {
     setPosts((prevPosts) =>
@@ -105,52 +112,26 @@ export default function HomePage() {
     )
   }
 
+  const toggleComments = (postId) => {
+    setOpenComments((prev) => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }))
+  }
+
   return (
     <div className="homepage">
-      {/* Navigation Bar */}
-      <nav className="navbar">
-        <div className="navbar-content">
-          {/* Logo */}
-          <div className="logo">
-            <img src="/src/assets/logo.png" alt="Logo" className="logo-image" />
-          </div>
-
-          {/* Desktop Menu */}
-          <div className="desktop-menu">
-            {menuItems.map((item) => (
-              <a key={item} href="#" className="nav-link">
-                {item}
-              </a>
-            ))}
-            <Link to="/auth" className="login-button">Login</Link>
-          </div>
-
-          {/* Mobile Hamburger */}
-          <button onClick={toggleMenu} className="hamburger" aria-label="Toggle menu">
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu Dropdown */}
-        <div className={`mobile-menu ${isMenuOpen ? "open" : ""}`}>
-          <div className="mobile-menu-content">
-            {menuItems.map((item) => (
-              <a key={item} href="#" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
-                {item}
-              </a>
-            ))}
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Desktop Hero Section */}
       <div className="hero-section">
         <div className="hero-content">
-          <h1 className="hero-title">Modern Social</h1>
+          <h1 className="hero-title">FixMyNagar</h1>
           <p className="hero-subtitle">
-            Discover amazing content, connect with others, and share your thoughts in our modern community platform.
+            Empowering citizens to identify and resolve public issues through simple reporting and collective action.
           </p>
-          <button className="hero-button">
+          <p className="hero-description">Together, we can build safer, cleaner, and well-maintained cities.</p>
+          <button className="hero-button" onClick={() => setIsReportModalOpen(true)}>
             <Flag size={20} />
             Report Issue
           </button>
@@ -160,7 +141,10 @@ export default function HomePage() {
       {/* Posts Section */}
       <div className="posts-section">
         <div className="container">
-          <h2 className="posts-title">Latest Posts</h2>
+          <div className="posts-header">
+            <h2 className="posts-title">Latest Posts</h2>
+            <p className="posts-subtitle">In your area</p>
+          </div>
 
           <div className="posts-grid">
             {posts.map((post) => (
@@ -194,11 +178,18 @@ export default function HomePage() {
                     <span>{post.status}</span>
                   </button>
 
-                  <button className="action-button comment-button">
+                  <button className="action-button comment-button" onClick={() => toggleComments(post.id)}>
                     <MessageCircle size={18} />
                     <span>{post.comments}</span>
                   </button>
                 </div>
+                {openComments[post.id] && (
+                  <CommentBox
+                    isOpen={openComments[post.id]}
+                    onClose={() => toggleComments(post.id)}
+                    isMobile={isMobile}
+                  />
+                )}
               </div>
             ))}
           </div>
@@ -207,11 +198,13 @@ export default function HomePage() {
 
       {/* Mobile Sticky Report Button */}
       <div className="mobile-report-button">
-        <button className="report-button">
+        <button className="report-button" onClick={() => setIsReportModalOpen(true)}>
           <Flag size={20} />
           Report Issue
         </button>
       </div>
+
+      <ReportIssueModal isOpen={isReportModalOpen} onClose={() => setIsReportModalOpen(false)} />
 
       <Footer />
     </div>
