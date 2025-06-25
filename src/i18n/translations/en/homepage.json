@@ -15,8 +15,18 @@
     "useCamera": "Use Camera",
     "problemAddress": "Problem Address",
     "addressPlaceholder": "Enter the exact location of the issue",
+    "addressRequired": "Address is required",
+    "imageRequired": "Photo is required to submit the report",
     "description": "Description (Optional)",
     "descriptionPlaceholder": "Describe the issue in detail...",
-    "submitReport": "Submit Report"
+    "submitReport": "Submit Report",
+    "submitting": "Submitting...",
+    "getLocation": "Get GPS Location",
+    "gettingLocation": "Getting Location...",
+    "submitSuccess": "Report Submitted Successfully!",
+    "submitSuccessDesc": "Thank you for helping improve our community. Your report has been received and will be reviewed.",
+    "submitError": "Submission Failed",
+    "submitErrorDesc": "There was an error submitting your report. Please check your connection and try again.",
+    "tryAgain": "Try Again"
   }
 }
