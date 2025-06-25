@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { X, Send } from "lucide-react"
 import "./CommentBox.css"
 
@@ -20,6 +21,7 @@ const mockComments = [
 ]
 
 export default function CommentBox({ isOpen, onClose, isMobile = false }) {
+  const { t } = useTranslation("common")
   const [newComment, setNewComment] = useState("")
   const [comments, setComments] = useState(mockComments)
 

@@ -1,11 +1,13 @@
 "use client"
 
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { Eye, EyeOff, Shield, Lock, User, AlertCircle } from "lucide-react"
 import { Link } from "react-router-dom"
 import "./AdminLoginPage.css"
 
 export default function AdminLoginPage() {
+  const { t } = useTranslation(["admin", "common"])
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -31,13 +33,13 @@ export default function AdminLoginPage() {
     const newErrors = {}
 
     if (!formData.username.trim()) {
-      newErrors.username = "Username is required"
+      newErrors.username = t("admin:login.username") + " is required"
     }
 
     if (!formData.password) {
-      newErrors.password = "Password is required"
+      newErrors.password = t("admin:login.password") + " is required"
     } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters"
+      newErrors.password = t("admin:login.password") + " must be at least 6 characters"
     }
 
     return newErrors
@@ -62,7 +64,7 @@ export default function AdminLoginPage() {
       // Redirect to admin dashboard on success
       // window.location.href = '/admin'
     } catch (error) {
-      setErrors({ general: "Invalid credentials. Please try again." })
+      setErrors({ general: t("admin:login.invalidCredentials") })
     } finally {
       setIsLoading(false)
     }
@@ -81,30 +83,26 @@ export default function AdminLoginPage() {
               <div className="admin-logo-icon">
                 <Shield size={32} />
               </div>
-              <h1>FixMyNagar</h1>
-              <span className="admin-badge">Admin Portal</span>
+              <h1>{t("common:appName")}</h1>
+              <span className="admin-badge">{t("admin:login.adminPortal")}</span>
             </div>
 
             <div className="admin-features">
-              <h2>Administrative Dashboard</h2>
-              <p>Manage community reports, monitor city issues, and coordinate with local authorities.</p>
+              <h2>{t("admin:login.administrativeDashboard")}</h2>
+              <p>{t("admin:login.manageDescription")}</p>
 
               <div className="feature-list">
                 <div className="feature-item">
-                  {/* <div className="feature-icon">📊</div> */}
-                  <span>Real-time Analytics</span>
+                  <span>{t("admin:login.realTimeAnalytics")}</span>
                 </div>
                 <div className="feature-item">
-                  {/* <div className="feature-icon">🗺️</div> */}
-                  <span>Interactive Maps</span>
+                  <span>{t("admin:login.interactiveMaps")}</span>
                 </div>
                 <div className="feature-item">
-                  {/* <div className="feature-icon">⚡</div> */}
-                  <span>Quick Actions</span>
+                  <span>{t("admin:login.quickActions")}</span>
                 </div>
                 <div className="feature-item">
-                  {/* <div className="feature-icon">🔒</div> */}
-                  <span>Secure Access</span>
+                  <span>{t("admin:login.secureAccess")}</span>
                 </div>
               </div>
             </div>
@@ -118,8 +116,8 @@ export default function AdminLoginPage() {
               <div className="admin-form-icon">
                 <Lock size={24} />
               </div>
-              <h2>Admin Login</h2>
-              <p>Enter your credentials to access the admin dashboard</p>
+              <h2>{t("admin:login.title")}</h2>
+              <p>{t("admin:login.subtitle")}</p>
             </div>
 
             {errors.general && (
@@ -131,7 +129,7 @@ export default function AdminLoginPage() {
 
             <form onSubmit={handleSubmit} className="admin-login-form">
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">{t("admin:login.username")}</label>
                 <div className="input-wrapper">
                   <User size={18} className="input-icon" />
                   <input
@@ -141,7 +139,7 @@ export default function AdminLoginPage() {
                     value={formData.username}
                     onChange={handleInputChange}
                     className={`form-input ${errors.username ? "error" : ""}`}
-                    placeholder="Enter your username"
+                    placeholder={t("admin:login.usernamePlaceholder")}
                     disabled={isLoading}
                   />
                 </div>
@@ -149,7 +147,7 @@ export default function AdminLoginPage() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">{t("admin:login.password")}</label>
                 <div className="input-wrapper">
                   <Lock size={18} className="input-icon" />
                   <input
@@ -159,7 +157,7 @@ export default function AdminLoginPage() {
                     value={formData.password}
                     onChange={handleInputChange}
                     className={`form-input ${errors.password ? "error" : ""}`}
-                    placeholder="Enter your password"
+                    placeholder={t("admin:login.passwordPlaceholder")}
                     disabled={isLoading}
                   />
                   <button
@@ -184,11 +182,11 @@ export default function AdminLoginPage() {
                     disabled={isLoading}
                   />
                   <span className="checkbox-custom"></span>
-                  Remember me
+                  {t("admin:login.rememberMe")}
                 </label>
 
                 <Link to="/admin/forgot-password" className="forgot-link">
-                  Forgot password?
+                  {t("admin:login.forgotPassword")}
                 </Link>
               </div>
 
@@ -196,12 +194,12 @@ export default function AdminLoginPage() {
                 {isLoading ? (
                   <>
                     <div className="spinner"></div>
-                    Signing in...
+                    {t("admin:login.signingIn")}
                   </>
                 ) : (
                   <>
                     <Shield size={18} />
-                    Sign In
+                    {t("common:buttons.signIn")}
                   </>
                 )}
               </button>
@@ -209,10 +207,10 @@ export default function AdminLoginPage() {
 
             <div className="admin-form-footer">
               <p>
-                Need help? <Link to="/contact">Contact Support</Link>
+                {t("admin:login.needHelp")} <Link to="/contact">{t("admin:login.contactSupport")}</Link>
               </p>
               <Link to="/" className="back-to-site">
-                ← Back to Main Site
+                ← {t("common:buttons.backToSite")}
               </Link>
             </div>
           </div>

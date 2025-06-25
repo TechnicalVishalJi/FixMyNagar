@@ -1,0 +1,108 @@
+{
+  "title": "About FixMyNagar",
+  "hero": {
+    "subtitle": "Empowering citizens to build safer, cleaner, and well-maintained cities through collective action",
+    "description": "We believe everyone deserves a city that works for them. Join us in creating responsive urban communities."
+  },
+  "mission": {
+    "title": "Our Mission",
+    "description": "At FixMyNagar, we believe everyone deserves a safer, cleaner, and well-maintained city. Our mission is to empower citizens to identify and resolve public issues—potholes, broken streetlights, sewage leaks, and more—through simple reporting and collective action."
+  },
+  "problem": {
+    "title": "The Problem We Solve",
+    "description": "Cities around India face recurring civic issues that go unnoticed or unaddressed:",
+    "issues": {
+      "reporting": "People don't know where to report problems",
+      "response": "Authorities respond only when enough complaints accumulate",
+      "transparency": "There's no transparency or tracking of resolutions"
+    },
+    "conclusion": "FixMyNagar exists to eliminate these barriers."
+  },
+  "howItWorks": {
+    "title": "How FixMyNagar Works",
+    "steps": {
+      "capture": {
+        "title": "Capture & Report",
+        "description": "Upload a photo & location of an issue in seconds—no forms, no hassle."
+      },
+      "classification": {
+        "title": "Smart Classification",
+        "description": "Our AI identifies the category (e.g., road damage, sanitation, lighting)."
+      },
+      "community": {
+        "title": "Community Map",
+        "description": "View reported issues in your neighborhood, upvote concerns you share."
+      },
+      "tracking": {
+        "title": "Real-Time Tracking",
+        "description": "Authorities mark issues \"Pending\", \"In Progress\", or \"Resolved\"."
+      },
+      "escalation": {
+        "title": "Escalation & Transparency",
+        "description": "Popular issues auto-escalate to local management bodies, keeping you informed."
+      }
+    }
+  },
+  "values": {
+    "title": "Our Values",
+    "transparency": {
+      "title": "Transparency",
+      "description": "Public visibility of all reports and their progress."
+    },
+    "community": {
+      "title": "Community Voice",
+      "description": "Empowering collective civic action through upvotes and feedback."
+    },
+    "innovation": {
+      "title": "Innovation",
+      "description": "Seamless AI + geolocation for faster, smarter civic reporting."
+    },
+    "accountability": {
+      "title": "Accountability",
+      "description": "Ensuring authorities take action, every time."
+    }
+  },
+  "story": {
+    "title": "Our Story",
+    "description": "Born from frustration and ambition, FixMyNagar started as a simple idea: \"What if civic issues could be fixed as fast as we notice them?\" As engineering students passionate about urban innovation, we built this platform to connect citizens, AI, and authorities in one intuitive ecosystem."
+  },
+  "team": {
+    "title": "Meet the Team",
+    "members": {
+      "vishal": {
+        "name": "Vishal Singh",
+        "role": "AI specialist & full-stack developer"
+      },
+      "payal": {
+        "name": "Payal Goswami",
+        "role": "Full Stack Developer"
+      },
+      "aditya": {
+        "name": "Aditya Pratap Singh",
+        "role": "Machine Learning"
+      },
+      "aditi": {
+        "name": "Aditi Sharma",
+        "role": "Frontend Developer"
+      }
+    }
+  },
+  "cta": {
+    "title": "Join the Movement",
+    "subtitle": "Together, we can build more responsive cities.",
+    "actions": {
+      "joinApp": "Join the web app today",
+      "joinAppDesc": "Start reporting issues in your area",
+      "reportIssues": "Report issues in your area",
+      "reportIssuesDesc": "Make your voice heard in your community",
+      "engage": "Engage with your community",
+      "engageDesc": "Support and upvote important issues",
+      "partner": "Partner with us",
+      "partnerDesc": "Bring FixMyNagar to your city"
+    },
+    "buttons": {
+      "startReporting": "Start Reporting",
+      "partnerWithUs": "Partner With Us"
+    }
+  }
+}

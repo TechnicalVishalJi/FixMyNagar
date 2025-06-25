@@ -1,9 +1,11 @@
 "use client"
 
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import "./AuthPage.css"
 
 export default function AuthPage() {
+  const { t } = useTranslation("auth")
   const [isLogin, setIsLogin] = useState(false)
   const [email, setEmail] = useState("")
 
@@ -18,7 +20,6 @@ export default function AuthPage() {
 
   return (
     <div className="auth-page">
-
       {/* Mobile View */}
       <div className="mobile-auth">
         <div className="auth-container">
@@ -31,8 +32,8 @@ export default function AuthPage() {
 
           {/* Header */}
           <div className="auth-header">
-            <h1>{isLogin ? "Welcome back" : "Create your account"}</h1>
-            {!isLogin && <p>Join the community</p>}
+            <h1>{isLogin ? t("welcomeBack") : t("createAccount")}</h1>
+            {!isLogin && <p>{t("joinCommunity")}</p>}
           </div>
 
           {/* Form */}
@@ -57,20 +58,20 @@ export default function AuthPage() {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              Continue with Google
+              {t("continueWithGoogle")}
             </button>
 
             {/* Divider */}
             <div className="divider">
               <div className="divider-line"></div>
-              <span className="divider-text">or</span>
+              <span className="divider-text">{t("or")}</span>
               <div className="divider-line"></div>
             </div>
 
             {/* Email Input */}
             <input
               type="email"
-              placeholder="Enter email address"
+              placeholder={t("emailPlaceholder")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="email-input"
@@ -79,20 +80,20 @@ export default function AuthPage() {
 
             {/* Continue Button */}
             <button type="submit" className="continue-button">
-              Continue
+              {t("continue")}
             </button>
           </form>
 
           {/* Terms */}
           <p className="terms-text">
-            By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+            {t("terms")} <a href="#">{t("termsOfService")}</a> {t("and")} <a href="#">{t("privacyPolicy")}</a>.
           </p>
 
           {/* Toggle Login/Signup */}
           <p className="toggle-text">
-            {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+            {isLogin ? t("dontHaveAccount") : t("alreadyHaveAccount")}{" "}
             <button type="button" onClick={toggleMode} className="toggle-button">
-              {isLogin ? "Sign up" : "Log in"}
+              {isLogin ? t("signup") : t("login")}
             </button>
           </p>
         </div>
@@ -112,8 +113,8 @@ export default function AuthPage() {
 
             {/* Header */}
             <div className="desktop-auth-header">
-              <h1>{isLogin ? "Welcome back" : "Create your account"}</h1>
-              {!isLogin && <p>Join the Community</p>}
+              <h1>{isLogin ? t("welcomeBack") : t("createAccount")}</h1>
+              {!isLogin && <p>{t("joinCommunity")}</p>}
             </div>
 
             {/* Form */}
@@ -138,20 +139,20 @@ export default function AuthPage() {
                     d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                   />
                 </svg>
-                Continue with Google
+                {t("continueWithGoogle")}
               </button>
 
               {/* Divider */}
               <div className="desktop-divider">
                 <div className="desktop-divider-line"></div>
-                <span className="desktop-divider-text">or</span>
+                <span className="desktop-divider-text">{t("or")}</span>
                 <div className="desktop-divider-line"></div>
               </div>
 
               {/* Email Input */}
               <input
                 type="email"
-                placeholder="Enter email address"
+                placeholder={t("emailPlaceholder")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="desktop-email-input"
@@ -160,20 +161,20 @@ export default function AuthPage() {
 
               {/* Continue Button */}
               <button type="submit" className="desktop-continue-button">
-                Continue
+                {t("continue")}
               </button>
             </form>
 
             {/* Terms */}
             <p className="desktop-terms-text">
-              By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+              {t("terms")} <a href="#">{t("termsOfService")}</a> {t("and")} <a href="#">{t("privacyPolicy")}</a>.
             </p>
 
             {/* Toggle Login/Signup */}
             <p className="desktop-toggle-text">
-              {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+              {isLogin ? t("dontHaveAccount") : t("alreadyHaveAccount")}{" "}
               <button type="button" onClick={toggleMode} className="desktop-toggle-button">
-                {isLogin ? "Sign up" : "Log in"}
+                {isLogin ? t("signup") : t("login")}
               </button>
             </p>
           </div>
@@ -182,8 +183,8 @@ export default function AuthPage() {
         {/* Right Side - Branding */}
         <div className="desktop-branding-side">
           <div className="branding-content">
-            <h2>Join thousands of teams</h2>
-            <p>Connect with your community, report issues, and make a difference together.</p>
+            <h2>{t("joinThousands")}</h2>
+            <p>{t("connectCommunity")}</p>
           </div>
         </div>
       </div>

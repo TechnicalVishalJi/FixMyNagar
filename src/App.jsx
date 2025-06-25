@@ -1,4 +1,7 @@
+"use client"
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { useEffect } from "react"
 import ScrollToTop from "./components/ScrollToTop"
 import HomePage from "./pages/HomePage"
 import AuthPage from "./pages/AuthPage"
@@ -7,8 +10,26 @@ import AdminLoginPage from "./pages/AdminLoginPage"
 import ContactPage from "./pages/ContactPage"
 import AboutPage from "./pages/AboutPage"
 import "./App.css"
+import "./i18n"
 
 function App() {
+  useEffect(() => {
+    // Set document direction based on language
+    const handleLanguageChange = () => {
+      const currentLang = localStorage.getItem("i18nextLng") || "en"
+      document.documentElement.lang = currentLang
+      // Add RTL support if needed in future
+      document.documentElement.dir = "ltr"
+    }
+
+    handleLanguageChange()
+    window.addEventListener("languagechange", handleLanguageChange)
+
+    return () => {
+      window.removeEventListener("languagechange", handleLanguageChange)
+    }
+  }, [])
+
   return (
     <Router>
       <ScrollToTop />

@@ -1,8 +1,11 @@
+import { useTranslation } from "react-i18next"
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react"
 import "./Footer.css"
 import { Link } from "react-router-dom"
 
 export default function Footer() {
+  const { t } = useTranslation("common")
+
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -12,9 +15,7 @@ export default function Footer() {
             <div className="footer-logo">
               <img src="/src/assets/logo.png" alt="Logo" className="footer-logo-image" />
             </div>
-            <p className="footer-description">
-              FixMyNagar platform is connecting communities and solving problems together.
-            </p>
+            <p className="footer-description">{t("footer.description")}</p>
             <div className="social-links">
               <a href="#" className="social-link">
                 <Facebook size={20} />
@@ -33,21 +34,21 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="footer-section">
-            <h4 className="footer-heading">Quick Links</h4>
+            <h4 className="footer-heading">{t("footer.quickLinks")}</h4>
             <ul className="footer-links">
               <li>
                 <Link to="/" className="footer-link">
-                    Home
+                  {t("navigation.home")}
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="footer-link">
-                    About
+                  {t("navigation.about")}
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="footer-link">
-                    Contact
+                  {t("navigation.contact")}
                 </Link>
               </li>
             </ul>
@@ -55,26 +56,26 @@ export default function Footer() {
 
           {/* Support */}
           <div className="footer-section">
-            <h4 className="footer-heading">Support</h4>
+            <h4 className="footer-heading">{t("footer.support")}</h4>
             <ul className="footer-links">
               <li>
                 <a href="#" className="footer-link">
-                  Help Center
+                  {t("footer.helpCenter")}
                 </a>
               </li>
               <li>
                 <a href="#" className="footer-link">
-                  Privacy Policy
+                  {t("footer.privacyPolicy")}
                 </a>
               </li>
               <li>
                 <a href="#" className="footer-link">
-                  Terms of Service
+                  {t("footer.termsOfService")}
                 </a>
               </li>
               <li>
                 <a href="/#heroSection" className="footer-link">
-                  Report Issue
+                  {t("footer.reportIssue")}
                 </a>
               </li>
             </ul>
@@ -82,26 +83,26 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div className="footer-section">
-            <h4 className="footer-heading">Contact</h4>
+            <h4 className="footer-heading">{t("footer.contact")}</h4>
             <div className="contact-info">
               <div className="contact-item">
                 <Mail size={16} />
-                <span>fixmynagar@example.com</span>
+                <span>{t("footer.email")}</span>
               </div>
               <div className="contact-item">
                 <Phone size={16} />
-                <span>+91 1234567890</span>
+                <span>{t("footer.phone")}</span>
               </div>
               <div className="contact-item">
                 <MapPin size={16} />
-                <span>123 Vijay Nagar, Ghaziabad, India</span>
+                <span>{t("footer.address")}</span>
               </div>
             </div>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; 2025 FixMyNagar. All rights reserved.</p>
+          <p>{t("footer.copyright")}</p>
         </div>
       </div>
     </footer>

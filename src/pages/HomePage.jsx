@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { MessageCircle, ChevronUp, Flag, CheckCircle, Clock } from "lucide-react"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
@@ -72,6 +73,7 @@ const mockPosts = [
 ]
 
 export default function HomePage() {
+  const { t } = useTranslation(["homepage", "common"])
   const [posts, setPosts] = useState(mockPosts)
   const [isReportModalOpen, setIsReportModalOpen] = useState(false)
   const [openComments, setOpenComments] = useState({})
@@ -126,14 +128,12 @@ export default function HomePage() {
       {/* Desktop Hero Section */}
       <div id="heroSection" className="hero-section">
         <div className="hero-content">
-          <h1 className="hero-title">FixMyNagar</h1>
-          <p className="hero-subtitle">
-            Empowering citizens to identify and resolve public issues through simple reporting and collective action.
-          </p>
-          <p className="hero-description">Together, we can build safer, cleaner, and well-maintained cities.</p>
+          <h1 className="hero-title">{t("homepage:hero.title")}</h1>
+          <p className="hero-subtitle">{t("homepage:hero.subtitle")}</p>
+          <p className="hero-description">{t("homepage:hero.description")}</p>
           <button className="hero-button" onClick={() => setIsReportModalOpen(true)}>
             <Flag size={20} />
-            Report Issue
+            {t("common:buttons.reportIssue")}
           </button>
         </div>
       </div>
@@ -142,8 +142,8 @@ export default function HomePage() {
       <div className="posts-section">
         <div className="container">
           <div className="posts-header">
-            <h2 className="posts-title">Latest Posts</h2>
-            <p className="posts-subtitle">In your area</p>
+            <h2 className="posts-title">{t("homepage:posts.title")}</h2>
+            <p className="posts-subtitle">{t("homepage:posts.subtitle")}</p>
           </div>
 
           <div className="posts-grid">
@@ -175,7 +175,7 @@ export default function HomePage() {
                     className={`action-button status-button ${post.status}`}
                   >
                     {post.status === "resolved" ? <CheckCircle size={18} /> : <Clock size={18} />}
-                    <span>{post.status}</span>
+                    <span>{t(`common:status.${post.status}`)}</span>
                   </button>
 
                   <button className="action-button comment-button" onClick={() => toggleComments(post.id)}>
@@ -200,7 +200,7 @@ export default function HomePage() {
       <div className="mobile-report-button">
         <button className="report-button" onClick={() => setIsReportModalOpen(true)}>
           <Flag size={20} />
-          Report Issue
+          {t("common:buttons.reportIssue")}
         </button>
       </div>
 

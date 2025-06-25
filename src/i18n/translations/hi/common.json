@@ -1,0 +1,49 @@
+{
+  "appName": "FixMyNagar",
+  "navigation": {
+    "home": "होम",
+    "about": "बारे में",
+    "contact": "संपर्क",
+    "login": "लॉगिन"
+  },
+  "buttons": {
+    "reportIssue": "समस्या रिपोर्ट करें",
+    "submit": "जमा करें",
+    "cancel": "रद्द करें",
+    "continue": "जारी रखें",
+    "signIn": "साइन इन",
+    "signUp": "साइन अप",
+    "login": "लॉग इन",
+    "signup": "साइन अप",
+    "sendMessage": "संदेश भेजें",
+    "backToSite": "मुख्य साइट पर वापस"
+  },
+  "status": {
+    "resolved": "हल हो गया",
+    "unresolved": "अनसुलझा",
+    "markAsResolved": "हल के रूप में चिह्नित करें",
+    "markAsUnresolved": "अनसुलझे के रूप में चिह्नित करें"
+  },
+  "footer": {
+    "description": "FixMyNagar प्लेटफॉर्म समुदायों को जोड़ता है और समस्याओं को मिलकर हल करता है।",
+    "quickLinks": "त्वरित लिंक",
+    "support": "सहायता",
+    "contact": "संपर्क",
+    "helpCenter": "सहायता केंद्र",
+    "privacyPolicy": "गोपनीयता नीति",
+    "termsOfService": "सेवा की शर्तें",
+    "reportIssue": "समस्या रिपोर्ट करें",
+    "email": "fixmynagar@example.com",
+    "phone": "+91 1234567890",
+    "address": "123 विजय नगर, गाजियाबाद, भारत",
+    "copyright": "© 2025 FixMyNagar। सभी अधिकार सुरक्षित।"
+  },
+  "languages": {
+    "en": "English",
+    "hi": "हिंदी",
+    "ta": "தமிழ்",
+    "te": "తెలుగు",
+    "bn": "বাংলা",
+    "mr": "मराठी"
+  }
+}

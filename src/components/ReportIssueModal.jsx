@@ -1,10 +1,12 @@
 "use client"
 
 import { useState, useRef } from "react"
+import { useTranslation } from "react-i18next"
 import { X, Camera, Upload, MapPin } from "lucide-react"
 import "./ReportIssueModal.css"
 
 export default function ReportIssueModal({ isOpen, onClose }) {
+  const { t } = useTranslation(["homepage", "common"])
   const [formData, setFormData] = useState({
     image: null,
     address: "",
@@ -44,7 +46,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Report an Issue</h2>
+          <h2>{t("homepage:reportModal.title")}</h2>
           <button className="close-button" onClick={onClose}>
             <X size={24} />
           </button>
@@ -53,7 +55,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
         <form onSubmit={handleSubmit} className="report-form">
           {/* Image Upload Section */}
           <div className="form-section">
-            <label className="form-label">Add Photo</label>
+            <label className="form-label">{t("homepage:reportModal.addPhoto")}</label>
             <div className="image-upload-container">
               {imagePreview ? (
                 <div className="image-preview">
@@ -73,7 +75,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                 <div className="upload-options">
                   <button type="button" className="upload-button" onClick={() => fileInputRef.current?.click()}>
                     <Upload size={20} />
-                    Upload Photo
+                    {t("homepage:reportModal.uploadPhoto")}
                   </button>
                   <button
                     type="button"
@@ -81,7 +83,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                     onClick={() => cameraInputRef.current?.click()}
                   >
                     <Camera size={20} />
-                    Use Camera
+                    {t("homepage:reportModal.useCamera")}
                   </button>
                 </div>
               )}
@@ -107,7 +109,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
           <div className="form-section">
             <label className="form-label" htmlFor="address">
               <MapPin size={16} />
-              Problem Address *
+              {t("homepage:reportModal.problemAddress")} *
             </label>
             <input
               type="text"
@@ -115,7 +117,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
               name="address"
               value={formData.address}
               onChange={handleInputChange}
-              placeholder="Enter the exact location of the issue"
+              placeholder={t("homepage:reportModal.addressPlaceholder")}
               className="form-input"
               required
             />
@@ -124,14 +126,14 @@ export default function ReportIssueModal({ isOpen, onClose }) {
           {/* Description Field */}
           <div className="form-section">
             <label className="form-label" htmlFor="description">
-              Description (Optional)
+              {t("homepage:reportModal.description")}
             </label>
             <textarea
               id="description"
               name="description"
               value={formData.description}
               onChange={handleInputChange}
-              placeholder="Describe the issue in detail..."
+              placeholder={t("homepage:reportModal.descriptionPlaceholder")}
               className="form-textarea"
               rows="4"
             />
@@ -139,7 +141,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
 
           {/* Submit Button */}
           <button type="submit" className="submit-button">
-            Submit Report
+            {t("homepage:reportModal.submitReport")}
           </button>
         </form>
       </div>

@@ -1,0 +1,49 @@
+{
+  "appName": "FixMyNagar",
+  "navigation": {
+    "home": "హోమ్",
+    "about": "మా గురించి",
+    "contact": "సంప్రదింపు",
+    "login": "లాగిన్"
+  },
+  "buttons": {
+    "reportIssue": "సమస్యను నివేదించండి",
+    "submit": "సమర్పించండి",
+    "cancel": "రద్దు చేయండి",
+    "continue": "కొనసాగించండి",
+    "signIn": "సైన్ ఇన్",
+    "signUp": "సైన్ అప్",
+    "login": "లాగ్ ఇన్",
+    "signup": "సైన్ అప్",
+    "sendMessage": "సందేశం పంపండి",
+    "backToSite": "ప్రధాన సైట్‌కు తిరిగి వెళ్ళండి"
+  },
+  "status": {
+    "resolved": "పరిష్కరించబడింది",
+    "unresolved": "పరిష్కరించబడలేదు",
+    "markAsResolved": "పరిష్కరించబడినట్లు గుర్తించండి",
+    "markAsUnresolved": "పరిష్కరించబడనిదిగా గుర్తించండి"
+  },
+  "footer": {
+    "description": "FixMyNagar ప్లాట్‌ఫారమ్ కమ్యూనిటీలను కనెక్ట్ చేస్తుంది మరియు సమస్యలను కలిసి పరిష్కరిస్తుంది.",
+    "quickLinks": "త్వరిత లింకులు",
+    "support": "మద్దతు",
+    "contact": "సంప్రదింపు",
+    "helpCenter": "సహాయ కేంద్రం",
+    "privacyPolicy": "గోప్యతా విధానం",
+    "termsOfService": "సేవా నిబంధనలు",
+    "reportIssue": "సమస్యను నివేదించండి",
+    "email": "fixmynagar@example.com",
+    "phone": "+91 1234567890",
+    "address": "123 విజయ్ నగర్, గాజియాబాద్, భారతదేశం",
+    "copyright": "© 2025 FixMyNagar. అన్ని హక్కులు రక్షించబడ్డాయి."
+  },
+  "languages": {
+    "en": "English",
+    "hi": "हिंदी",
+    "ta": "தமிழ்",
+    "te": "తెలుగు",
+    "bn": "বাংলা",
+    "mr": "मराठी"
+  }
+}

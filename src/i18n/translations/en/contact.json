@@ -1,0 +1,17 @@
+{
+  "title": "Get in Touch",
+  "subtitle": "Have feedback or collaboration ideas? We'd love to hear from you.",
+  "contactInfo": "Contact Information",
+  "email": "Email",
+  "phone": "Phone",
+  "address": "Address",
+  "joinMovement": "Join the Movement",
+  "joinDescription": "Together, we can build more responsive cities. Partner with us to bring FixMyNagar to your city.",
+  "sendMessage": "Send us a Message",
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "required": "*"
+  }
+}

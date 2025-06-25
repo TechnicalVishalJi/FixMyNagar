@@ -1,0 +1,22 @@
+{
+  "hero": {
+    "title": "FixMyNagar",
+    "subtitle": "Empowering citizens to identify and resolve public issues through simple reporting and collective action.",
+    "description": "Together, we can build safer, cleaner, and well-maintained cities."
+  },
+  "posts": {
+    "title": "Latest Posts",
+    "subtitle": "In your area"
+  },
+  "reportModal": {
+    "title": "Report an Issue",
+    "addPhoto": "Add Photo",
+    "uploadPhoto": "Upload Photo",
+    "useCamera": "Use Camera",
+    "problemAddress": "Problem Address",
+    "addressPlaceholder": "Enter the exact location of the issue",
+    "description": "Description (Optional)",
+    "descriptionPlaceholder": "Describe the issue in detail...",
+    "submitReport": "Submit Report"
+  }
+}

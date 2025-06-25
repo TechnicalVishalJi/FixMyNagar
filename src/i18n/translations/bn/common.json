@@ -1,0 +1,49 @@
+{
+  "appName": "FixMyNagar",
+  "navigation": {
+    "home": "হোম",
+    "about": "আমাদের সম্পর্কে",
+    "contact": "যোগাযোগ",
+    "login": "লগইন"
+  },
+  "buttons": {
+    "reportIssue": "সমস্যা রিপোর্ট করুন",
+    "submit": "জমা দিন",
+    "cancel": "বাতিল করুন",
+    "continue": "চালিয়ে যান",
+    "signIn": "সাইন ইন",
+    "signUp": "সাইন আপ",
+    "login": "লগ ইন",
+    "signup": "সাইন আপ",
+    "sendMessage": "বার্তা পাঠান",
+    "backToSite": "মূল সাইটে ফিরে যান"
+  },
+  "status": {
+    "resolved": "সমাধান হয়েছে",
+    "unresolved": "অমীমাংসিত",
+    "markAsResolved": "সমাধান হিসেবে চিহ্নিত করুন",
+    "markAsUnresolved": "অমীমাংসিত হিসেবে চিহ্নিত করুন"
+  },
+  "footer": {
+    "description": "FixMyNagar প্ল্যাটফর্ম সম্প্রদায়গুলিকে সংযুক্ত করে এবং একসাথে সমস্যা সমাধান করে।",
+    "quickLinks": "দ্রুত লিঙ্ক",
+    "support": "সহায়তা",
+    "contact": "যোগাযোগ",
+    "helpCenter": "সহায়তা কেন্দ্র",
+    "privacyPolicy": "গোপনীয়তা নীতি",
+    "termsOfService": "সেবার শর্তাবলী",
+    "reportIssue": "সমস্যা রিপোর্ট করুন",
+    "email": "fixmynagar@example.com",
+    "phone": "+91 1234567890",
+    "address": "১২৩ বিজয় নগর, গাজিয়াবাদ, ভারত",
+    "copyright": "© ২০২৫ FixMyNagar। সমস্ত অধিকার সংরক্ষিত।"
+  },
+  "languages": {
+    "en": "English",
+    "hi": "हिंदी",
+    "ta": "தமிழ்",
+    "te": "తెలుగు",
+    "bn": "বাংলা",
+    "mr": "मराठी"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "appName": "FixMyNagar",
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login"
+  },
+  "buttons": {
+    "reportIssue": "Report Issue",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "login": "Log in",
+    "signup": "Sign up",
+    "sendMessage": "Send Message",
+    "backToSite": "Back to Main Site"
+  },
+  "status": {
+    "resolved": "resolved",
+    "unresolved": "unresolved",
+    "markAsResolved": "Mark as Resolved",
+    "markAsUnresolved": "Mark as Unresolved"
+  },
+  "footer": {
+    "description": "FixMyNagar platform is connecting communities and solving problems together.",
+    "quickLinks": "Quick Links",
+    "support": "Support",
+    "contact": "Contact",
+    "helpCenter": "Help Center",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "reportIssue": "Report Issue",
+    "email": "fixmynagar@example.com",
+    "phone": "+91 1234567890",
+    "address": "123 Vijay Nagar, Ghaziabad, India",
+    "copyright": "© 2025 FixMyNagar. All rights reserved."
+  },
+  "languages": {
+    "en": "English",
+    "hi": "हिंदी",
+    "ta": "தமிழ்",
+    "te": "తెలుగు",
+    "bn": "বাংলা",
+    "mr": "मराठी"
+  }
+}

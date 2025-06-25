@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { CheckCircle, Clock, MessageCircle, ChevronUp, Filter } from "lucide-react"
 import CommentBox from "../components/CommentBox"
 import "./AdminPage.css"
@@ -75,6 +76,7 @@ const mockPosts = [
 ]
 
 export default function AdminPage() {
+  const { t } = useTranslation(["admin", "common"])
   const [posts, setPosts] = useState(mockPosts)
   const [filter, setFilter] = useState("all")
   const [openComments, setOpenComments] = useState({})
@@ -132,12 +134,11 @@ export default function AdminPage() {
 
   return (
     <div className="admin-page">
-
       {/* Header */}
       <div className="admin-header">
         <div className="container">
-          <h1>Admin Dashboard</h1>
-          <p>Manage and monitor community reports</p>
+          <h1>{t("admin:dashboard")}</h1>
+          <p>{t("admin:manageReports")}</p>
         </div>
       </div>
 
@@ -157,9 +158,9 @@ export default function AdminPage() {
                   </svg>
                 </div>
                 <div className="maps-text">
-                  <h3>Interactive Map View</h3>
-                  <p>Google Maps integration would be displayed here</p>
-                  <p className="maps-subtitle">This would show real-time locations of reported issues</p>
+                  <h3>{t("admin:interactiveMap")}</h3>
+                  <p>{t("admin:googleMapsIntegration")}</p>
+                  <p className="maps-subtitle">{t("admin:realTimeLocations")}</p>
                 </div>
               </div>
 
@@ -176,26 +177,26 @@ export default function AdminPage() {
           <div className="filter-buttons">
             <button onClick={() => setFilter("all")} className={`filter-button ${filter === "all" ? "active" : ""}`}>
               <Filter size={18} />
-              All Posts ({posts.length})
+              {t("admin:allPosts")} ({posts.length})
             </button>
             <button
               onClick={() => setFilter("resolved")}
               className={`filter-button resolved ${filter === "resolved" ? "active" : ""}`}
             >
               <CheckCircle size={18} />
-              Resolved ({resolvedCount})
+              {t("admin:resolved")} ({resolvedCount})
             </button>
             <button
               onClick={() => setFilter("unresolved")}
               className={`filter-button unresolved ${filter === "unresolved" ? "active" : ""}`}
             >
               <Clock size={18} />
-              Unresolved ({unresolvedCount})
+              {t("admin:unresolved")} ({unresolvedCount})
             </button>
           </div>
 
           <div className="filter-stats">
-            Showing {filteredPosts.length} of {posts.length} posts
+            {t("admin:showing")} {filteredPosts.length} {t("admin:of")} {posts.length} {t("admin:posts")}
           </div>
         </div>
 
@@ -234,7 +235,7 @@ export default function AdminPage() {
 
                 <button onClick={() => toggleStatus(post.id)} className={`status-toggle-button ${post.status}`}>
                   {post.status === "resolved" ? <CheckCircle size={18} /> : <Clock size={18} />}
-                  Mark as {post.status === "resolved" ? "Unresolved" : "Resolved"}
+                  {post.status === "resolved" ? t("common:status.markAsUnresolved") : t("common:status.markAsResolved")}
                 </button>
               </div>
               {openComments[post.id] && (
@@ -250,7 +251,7 @@ export default function AdminPage() {
 
         {filteredPosts.length === 0 && (
           <div className="no-posts">
-            <div>No posts found for the selected filter</div>
+            <div>{t("admin:noPostsFound")}</div>
           </div>
         )}
       </div>

@@ -1,12 +1,14 @@
 "use client"
 
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { Mail, Phone, MapPin, Send } from "lucide-react"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import "./ContactPage.css"
 
 export default function ContactPage() {
+  const { t } = useTranslation(["contact", "common"])
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,22 +34,22 @@ export default function ContactPage() {
       <div className="contact-content">
         <div className="container">
           <div className="contact-header">
-            <h1>Get in Touch</h1>
-            <p>Have feedback or collaboration ideas? We'd love to hear from you.</p>
+            <h1>{t("contact:title")}</h1>
+            <p>{t("contact:subtitle")}</p>
           </div>
 
           <div className="contact-grid">
             {/* Contact Information */}
             <div className="contact-info">
-              <h2>Contact Information</h2>
+              <h2>{t("contact:contactInfo")}</h2>
               <div className="contact-methods">
                 <div className="contact-method">
                   <div className="contact-icon">
                     <Mail size={24} />
                   </div>
                   <div className="contact-details">
-                    <h3>Email</h3>
-                    <p>fixmynagar@example.com</p>
+                    <h3>{t("contact:email")}</h3>
+                    <p>{t("common:footer.email")}</p>
                   </div>
                 </div>
 
@@ -56,8 +58,8 @@ export default function ContactPage() {
                     <Phone size={24} />
                   </div>
                   <div className="contact-details">
-                    <h3>Phone</h3>
-                    <p>+91 12345 67890</p>
+                    <h3>{t("contact:phone")}</h3>
+                    <p>{t("common:footer.phone")}</p>
                   </div>
                 </div>
 
@@ -66,28 +68,26 @@ export default function ContactPage() {
                     <MapPin size={24} />
                   </div>
                   <div className="contact-details">
-                    <h3>Address</h3>
-                    <p>
-                      123 Vijay Nagar
-                      <br />
-                      Ghaziabad, India
-                    </p>
+                    <h3>{t("contact:address")}</h3>
+                    <p>{t("common:footer.address")}</p>
                   </div>
                 </div>
               </div>
 
               <div className="contact-cta">
-                <h3>Join the Movement</h3>
-                <p>Together, we can build more responsive cities. Partner with us to bring FixMyNagar to your city.</p>
+                <h3>{t("contact:joinMovement")}</h3>
+                <p>{t("contact:joinDescription")}</p>
               </div>
             </div>
 
             {/* Contact Form */}
             <div className="contact-form-container">
-              <h2>Send us a Message</h2>
+              <h2>{t("contact:sendMessage")}</h2>
               <form onSubmit={handleSubmit} className="contact-form">
                 <div className="form-group">
-                  <label htmlFor="name">Name *</label>
+                  <label htmlFor="name">
+                    {t("contact:form.name")} {t("contact:form.required")}
+                  </label>
                   <input
                     type="text"
                     id="name"
@@ -100,7 +100,9 @@ export default function ContactPage() {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="email">Email *</label>
+                  <label htmlFor="email">
+                    {t("contact:form.email")} {t("contact:form.required")}
+                  </label>
                   <input
                     type="email"
                     id="email"
@@ -113,7 +115,9 @@ export default function ContactPage() {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="message">Message *</label>
+                  <label htmlFor="message">
+                    {t("contact:form.message")} {t("contact:form.required")}
+                  </label>
                   <textarea
                     id="message"
                     name="message"
@@ -127,7 +131,7 @@ export default function ContactPage() {
 
                 <button type="submit" className="submit-button">
                   <Send size={20} />
-                  Send Message
+                  {t("common:buttons.sendMessage")}
                 </button>
               </form>
             </div>

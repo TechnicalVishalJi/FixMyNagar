@@ -1,0 +1,49 @@
+{
+  "appName": "FixMyNagar",
+  "navigation": {
+    "home": "முகப்பு",
+    "about": "எங்களைப் பற்றி",
+    "contact": "தொடர்பு",
+    "login": "உள்நுழைவு"
+  },
+  "buttons": {
+    "reportIssue": "பிரச்சினையை புகாரளிக்கவும்",
+    "submit": "சமர்ப்பிக்கவும்",
+    "cancel": "ரத்து செய்யவும்",
+    "continue": "தொடரவும்",
+    "signIn": "உள்நுழைக",
+    "signUp": "பதிவு செய்க",
+    "login": "உள்நுழைக",
+    "signup": "பதிவு செய்க",
+    "sendMessage": "செய்தி அனுப்பவும்",
+    "backToSite": "முக்கிய தளத்திற்கு திரும்பவும்"
+  },
+  "status": {
+    "resolved": "தீர்க்கப்பட்டது",
+    "unresolved": "தீர்க்கப்படாதது",
+    "markAsResolved": "தீர்க்கப்பட்டதாக குறிக்கவும்",
+    "markAsUnresolved": "தீர்க்கப்படாததாக குறிக்கவும்"
+  },
+  "footer": {
+    "description": "FixMyNagar தளம் சமூகங்களை இணைத்து பிரச்சினைகளை ஒன்றாக தீர்க்கிறது.",
+    "quickLinks": "விரைவு இணைப்புகள்",
+    "support": "ஆதரவு",
+    "contact": "தொடர்பு",
+    "helpCenter": "உதவி மையம்",
+    "privacyPolicy": "தனியுரிமை கொள்கை",
+    "termsOfService": "சேவை விதிமுறைகள்",
+    "reportIssue": "பிரச்சினையை புகாரளிக்கவும்",
+    "email": "fixmynagar@example.com",
+    "phone": "+91 1234567890",
+    "address": "123 விஜய் நகர், காசியாபாத், இந்தியா",
+    "copyright": "© 2025 FixMyNagar. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை."
+  },
+  "languages": {
+    "en": "English",
+    "hi": "हिंदी",
+    "ta": "தமிழ்",
+    "te": "తెలుగు",
+    "bn": "বাংলা",
+    "mr": "मराठी"
+  }
+}
