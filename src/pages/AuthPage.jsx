@@ -22,6 +22,12 @@ export default function AuthPage() {
   const [errors, setErrors] = useState({})
   const [successMessage, setSuccessMessage] = useState("")
   const [showOtp, setShowOtp] = useState(false)
+  
+  useEffect(() => {
+    isLoggedIn().then((status) => {
+      if(Boolean(status)){navigate("/")};
+    });
+  }, [navigate])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -160,35 +166,6 @@ export default function AuthPage() {
     setErrors({})
     sendOtp()
   }
-
-  const checkIfLoggedIn = async () => {
-    try {
-      const response = await fetch('/api/auth/me', {
-        method: 'GET',
-        credentials: 'include', // Important: includes HTTP-only cookies
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        return data.user;
-      } else {
-        // User not authenticated
-        return null;
-      }
-    } catch (error) {
-      console.error('Auth check failed:', error);
-      return null;
-    }
-  };
-
-  useEffect(() => {
-    if (isLoggedIn()) {
-      navigate("/")
-    }
-  }, [navigate])
 
   return (
     <div className="auth-page">

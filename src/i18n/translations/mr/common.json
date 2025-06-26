@@ -4,7 +4,8 @@
     "home": "होम",
     "about": "आमच्याबद्दल",
     "contact": "संपर्क",
-    "login": "लॉगिन"
+    "login": "लॉगिन",
+    "logout": "लॉग आउट"
   },
   "buttons": {
     "reportIssue": "समस्या नोंदवा",

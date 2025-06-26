@@ -4,8 +4,10 @@ import { useState, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { X, Camera, Upload, MapPin, Navigation } from "lucide-react"
 import "./ReportIssueModal.css"
+import { useNavigate } from "react-router-dom"
 
 export default function ReportIssueModal({ isOpen, onClose }) {
+  const navigate = useNavigate()
   const { t } = useTranslation(["homepage", "common"])
   const [formData, setFormData] = useState({
     image: null,
@@ -124,11 +126,12 @@ export default function ReportIssueModal({ isOpen, onClose }) {
 
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/report`, {
         method: "POST",
+        credentials: "include",
         body: submitData,
       })
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        navigate("/auth")
       }
 
       const result = await response.json()
