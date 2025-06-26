@@ -63,6 +63,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2000;
 }
 
 .contact-details h3 {
@@ -121,8 +122,8 @@
   margin-bottom: 0.5rem;
 }
 
-.form-input,
-.form-textarea {
+form .form-input,
+form .form-textarea {
   padding: 0.75rem;
   border: 1px solid #d1d5db;
   border-radius: 0.5rem;
@@ -130,20 +131,27 @@
   transition: border-color 0.3s ease;
 }
 
-.form-input:focus,
-.form-textarea:focus {
+form .form-input:focus,
+form .form-textarea:focus {
   outline: none;
   border-color: #000;
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
-.form-textarea {
+form .form-input:disabled,
+form .form-textarea:disabled {
+  background-color: #f9f9f9;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+form .form-textarea {
   resize: vertical;
   min-height: 120px;
   font-family: inherit;
 }
 
-.submit-button {
+form .submit-button {
   background-color: #000;
   color: #fff;
   padding: 1rem 2rem;
@@ -156,11 +164,102 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  min-height: 3.5rem;
 }
 
-.submit-button:hover {
+form .submit-button:hover:not(:disabled) {
   background-color: #333;
+}
+
+form .submit-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+form .submit-button.success {
+  background-color: #16a34a;
+  color: #fff;
+}
+
+form .submit-button.success:hover {
+  background-color: #15803d;
+}
+
+form .submit-button.error {
+  background-color: #dc2626;
+  color: #fff;
+}
+
+form .submit-button.error:hover {
+  background-color: #b91c1c;
+}
+
+form .spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.form-success-message {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  animation: slideIn 0.3s ease-out;
+}
+
+.success-icon {
+  background-color: #16a34a;
+  color: #fff;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.success-content h3 {
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: #15803d;
+  margin-bottom: 0.5rem;
+}
+
+.success-content p {
+  color: #166534;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Desktop Styles */

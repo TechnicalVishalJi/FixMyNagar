@@ -1,22 +1,194 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
+import { Mail, User, Shield, Send, Check, X, Eye, EyeOff } from "lucide-react"
 import "./AuthPage.css"
+import { isLoggedIn } from "../utils/common"
 
 export default function AuthPage() {
   const { t } = useTranslation("auth")
+  const navigate = useNavigate()
   const [isLogin, setIsLogin] = useState(false)
-  const [email, setEmail] = useState("")
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    otp: "",
+  })
+  const [otpSent, setOtpSent] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [otpLoading, setOtpLoading] = useState(false)
+  const [errors, setErrors] = useState({})
+  const [successMessage, setSuccessMessage] = useState("")
+  const [showOtp, setShowOtp] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+    // Clear errors when user starts typing
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" })
+    }
+    if (errors.general) {
+      setErrors({ ...errors, general: "" })
+    }
+  }
+
+  const validateForm = () => {
+    const newErrors = {}
+
+    if (!formData.email.trim()) {
+      newErrors.email = t("auth:validation.emailRequired")
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = t("auth:validation.emailInvalid")
+    }
+
+    if (!isLogin && !formData.name.trim()) {
+      newErrors.name = t("auth:validation.nameRequired")
+    }
+
+    return newErrors
+  }
+
+  const validateOtp = () => {
+    if (!formData.otp.trim()) {
+      setErrors({ otp: t("auth:validation.otpRequired") })
+      return false
+    }
+    if (formData.otp.length !== 6) {
+      setErrors({ otp: t("auth:validation.otpInvalid") })
+      return false
+    }
+    return true
+  }
+
+  const sendOtp = async () => {
+    const validationErrors = validateForm()
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors)
+      return
+    }
+
+    setOtpLoading(true)
+    setErrors({})
+
+    try {
+      const endpoint = isLogin ? "/auth/login" : "/auth/signup"
+      const payload = isLogin ? { email: formData.email } : { name: formData.name, email: formData.email }
+
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}${endpoint}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(payload),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setOtpSent(true)
+        setSuccessMessage(t("auth:otpSent"))
+        setTimeout(() => setSuccessMessage(""), 3000)
+      } else {
+        setErrors({ general: result.error || t("auth:errors.otpSendFailed") })
+      }
+    } catch (error) {
+      console.error("Error sending OTP:", error)
+      setErrors({ general: t("auth:errors.networkError") })
+    } finally {
+      setOtpLoading(false)
+    }
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log("Form submitted:", { email, isLogin })
+
+    if (!validateOtp()) {
+      return
+    }
+
+    setIsLoading(true)
+    setErrors({})
+
+    try {
+      const endpoint = isLogin ? "/auth/login/verify" : "/auth/signup/verify"
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}${endpoint}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          email: formData.email,
+          otp: formData.otp,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setSuccessMessage(isLogin ? t("auth:loginSuccess") : t("auth:signupSuccess"))
+        // Redirect to homepage after successful authentication
+        setTimeout(() => {
+          navigate("/")
+        }, 1500)
+      } else {
+        setErrors({ general: result.error || t("auth:errors.verificationFailed") })
+      }
+    } catch (error) {
+      console.error("Error verifying OTP:", error)
+      setErrors({ general: t("auth:errors.networkError") })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const toggleMode = () => {
     setIsLogin(!isLogin)
+    setFormData({ name: "", email: "", otp: "" })
+    setOtpSent(false)
+    setErrors({})
+    setSuccessMessage("")
   }
+
+  const resendOtp = () => {
+    setFormData({ ...formData, otp: "" })
+    setOtpSent(false)
+    setErrors({})
+    sendOtp()
+  }
+
+  const checkIfLoggedIn = async () => {
+    try {
+      const response = await fetch('/api/auth/me', {
+        method: 'GET',
+        credentials: 'include', // Important: includes HTTP-only cookies
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data.user;
+      } else {
+        // User not authenticated
+        return null;
+      }
+    } catch (error) {
+      console.error('Auth check failed:', error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    if (isLoggedIn()) {
+      navigate("/")
+    }
+  }, [navigate])
 
   return (
     <div className="auth-page">
@@ -35,6 +207,22 @@ export default function AuthPage() {
             <h1>{isLogin ? t("welcomeBack") : t("createAccount")}</h1>
             {!isLogin && <p>{t("joinCommunity")}</p>}
           </div>
+
+          {/* Success Message */}
+          {successMessage && (
+            <div className="success-banner">
+              <Check size={16} />
+              <span>{successMessage}</span>
+            </div>
+          )}
+
+          {/* Error Message */}
+          {errors.general && (
+            <div className="error-banner">
+              <X size={16} />
+              <span>{errors.general}</span>
+            </div>
+          )}
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="auth-form">
@@ -68,19 +256,110 @@ export default function AuthPage() {
               <div className="divider-line"></div>
             </div>
 
-            {/* Email Input */}
-            <input
-              type="email"
-              placeholder={t("emailPlaceholder")}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="email-input"
-              required
-            />
+            {/* Name Input (Signup only) */}
+            {!isLogin && (
+              <div className="input-group">
+                <div className="input-wrapper">
+                  <User size={18} className="input-icon" />
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder={t("namePlaceholder")}
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className={`form-input ${errors.name ? "error" : ""}`}
+                    disabled={isLoading || otpLoading}
+                  />
+                </div>
+                {errors.name && <span className="error-text">{errors.name}</span>}
+              </div>
+            )}
 
-            {/* Continue Button */}
-            <button type="submit" className="continue-button">
-              {t("continue")}
+            {/* Email Input */}
+            <div className="input-group">
+              <div className="input-wrapper">
+                <Mail size={18} className="input-icon" />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder={t("emailPlaceholder")}
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className={`form-input ${errors.email ? "error" : ""}`}
+                  disabled={isLoading || otpLoading || otpSent}
+                />
+              </div>
+              {errors.email && <span className="error-text">{errors.email}</span>}
+            </div>
+
+            {/* OTP Input */}
+            <div className="input-group">
+              <div className="otp-container">
+                <div className="input-wrapper otp-input-wrapper">
+                  <Shield size={18} className="input-icon" />
+                  <input
+                    type={showOtp ? "text" : "password"}
+                    name="otp"
+                    placeholder={t("otpPlaceholder")}
+                    value={formData.otp}
+                    onChange={handleInputChange}
+                    className={`form-input otp-input ${errors.otp ? "error" : ""}`}
+                    disabled={isLoading || otpLoading || !otpSent}
+                    maxLength="6"
+                  />
+                  <button
+                    type="button"
+                    className="otp-toggle"
+                    onClick={() => setShowOtp(!showOtp)}
+                    disabled={!formData.otp}
+                  >
+                    {showOtp ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  onClick={sendOtp}
+                  disabled={otpLoading || isLoading || (!isLogin && !formData.name.trim()) || !formData.email.trim()}
+                  className={`otp-button ${otpSent ? "sent" : ""}`}
+                >
+                  {otpLoading ? (
+                    <div className="spinner-small"></div>
+                  ) : otpSent ? (
+                    <Check size={16} />
+                  ) : (
+                    <Send size={16} />
+                  )}
+                  {otpLoading ? t("sending") : otpSent ? t("otpSent") : t("sendOtp")}
+                </button>
+              </div>
+              {errors.otp && <span className="error-text">{errors.otp}</span>}
+              {otpSent && (
+                <div className="otp-info">
+                  <p className="otp-sent-message">{t("otpSentMessage")}</p>
+                  <button type="button" onClick={resendOtp} className="resend-link" disabled={otpLoading}>
+                    {t("resendOtp")}
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="continue-button"
+              disabled={isLoading || otpLoading || !otpSent || !formData.otp.trim()}
+            >
+              {isLoading ? (
+                <>
+                  <div className="spinner-small"></div>
+                  {isLogin ? t("signingIn") : t("signingUp")}
+                </>
+              ) : (
+                <>
+                  <Shield size={20} />
+                  {isLogin ? t("signIn") : t("signUp")}
+                </>
+              )}
             </button>
           </form>
 
@@ -92,7 +371,7 @@ export default function AuthPage() {
           {/* Toggle Login/Signup */}
           <p className="toggle-text">
             {isLogin ? t("dontHaveAccount") : t("alreadyHaveAccount")}{" "}
-            <button type="button" onClick={toggleMode} className="toggle-button">
+            <button type="button" onClick={toggleMode} className="toggle-button" disabled={isLoading || otpLoading}>
               {isLogin ? t("signup") : t("login")}
             </button>
           </p>
@@ -116,6 +395,22 @@ export default function AuthPage() {
               <h1>{isLogin ? t("welcomeBack") : t("createAccount")}</h1>
               {!isLogin && <p>{t("joinCommunity")}</p>}
             </div>
+
+            {/* Success Message */}
+            {successMessage && (
+              <div className="desktop-success-banner">
+                <Check size={16} />
+                <span>{successMessage}</span>
+              </div>
+            )}
+
+            {/* Error Message */}
+            {errors.general && (
+              <div className="desktop-error-banner">
+                <X size={16} />
+                <span>{errors.general}</span>
+              </div>
+            )}
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="desktop-auth-form">
@@ -149,19 +444,110 @@ export default function AuthPage() {
                 <div className="desktop-divider-line"></div>
               </div>
 
-              {/* Email Input */}
-              <input
-                type="email"
-                placeholder={t("emailPlaceholder")}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="desktop-email-input"
-                required
-              />
+              {/* Name Input (Signup only) */}
+              {!isLogin && (
+                <div className="desktop-input-group">
+                  <div className="desktop-input-wrapper">
+                    <User size={18} className="desktop-input-icon" />
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder={t("namePlaceholder")}
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className={`desktop-form-input ${errors.name ? "error" : ""}`}
+                      disabled={isLoading || otpLoading}
+                    />
+                  </div>
+                  {errors.name && <span className="desktop-error-text">{errors.name}</span>}
+                </div>
+              )}
 
-              {/* Continue Button */}
-              <button type="submit" className="desktop-continue-button">
-                {t("continue")}
+              {/* Email Input */}
+              <div className="desktop-input-group">
+                <div className="desktop-input-wrapper">
+                  <Mail size={18} className="desktop-input-icon" />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder={t("emailPlaceholder")}
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={`desktop-form-input ${errors.email ? "error" : ""}`}
+                    disabled={isLoading || otpLoading || otpSent}
+                  />
+                </div>
+                {errors.email && <span className="desktop-error-text">{errors.email}</span>}
+              </div>
+
+              {/* OTP Input */}
+              <div className="desktop-input-group">
+                <div className="desktop-otp-container">
+                  <div className="desktop-input-wrapper desktop-otp-input-wrapper">
+                    <Shield size={18} className="desktop-input-icon" />
+                    <input
+                      type={showOtp ? "text" : "password"}
+                      name="otp"
+                      placeholder={t("otpPlaceholder")}
+                      value={formData.otp}
+                      onChange={handleInputChange}
+                      className={`desktop-form-input desktop-otp-input ${errors.otp ? "error" : ""}`}
+                      disabled={isLoading || otpLoading || !otpSent}
+                      maxLength="6"
+                    />
+                    <button
+                      type="button"
+                      className="desktop-otp-toggle"
+                      onClick={() => setShowOtp(!showOtp)}
+                      disabled={!formData.otp}
+                    >
+                      {showOtp ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={sendOtp}
+                    disabled={otpLoading || isLoading || (!isLogin && !formData.name.trim()) || !formData.email.trim()}
+                    className={`desktop-otp-button ${otpSent ? "sent" : ""}`}
+                  >
+                    {otpLoading ? (
+                      <div className="spinner-small"></div>
+                    ) : otpSent ? (
+                      <Check size={16} />
+                    ) : (
+                      <Send size={16} />
+                    )}
+                    {otpLoading ? t("sending") : otpSent ? t("otpSent") : t("sendOtp")}
+                  </button>
+                </div>
+                {errors.otp && <span className="desktop-error-text">{errors.otp}</span>}
+                {otpSent && (
+                  <div className="desktop-otp-info">
+                    <p className="desktop-otp-sent-message">{t("otpSentMessage")}</p>
+                    <button type="button" onClick={resendOtp} className="desktop-resend-link" disabled={otpLoading}>
+                      {t("resendOtp")}
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="desktop-continue-button"
+                disabled={isLoading || otpLoading || !otpSent || !formData.otp.trim()}
+              >
+                {isLoading ? (
+                  <>
+                    <div className="spinner-small"></div>
+                    {isLogin ? t("signingIn") : t("signingUp")}
+                  </>
+                ) : (
+                  <>
+                    <Shield size={20} />
+                    {isLogin ? t("signIn") : t("signUp")}
+                  </>
+                )}
               </button>
             </form>
 
@@ -173,7 +559,12 @@ export default function AuthPage() {
             {/* Toggle Login/Signup */}
             <p className="desktop-toggle-text">
               {isLogin ? t("dontHaveAccount") : t("alreadyHaveAccount")}{" "}
-              <button type="button" onClick={toggleMode} className="desktop-toggle-button">
+              <button
+                type="button"
+                onClick={toggleMode}
+                className="desktop-toggle-button"
+                disabled={isLoading || otpLoading}
+              >
                 {isLogin ? t("signup") : t("login")}
               </button>
             </p>

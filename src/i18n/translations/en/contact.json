@@ -12,6 +12,12 @@
     "name": "Name",
     "email": "Email",
     "message": "Message",
-    "required": "*"
+    "required": "*",
+    "sending": "Sending...",
+    "sent": "Message Sent!",
+    "failed": "Send Failed",
+    "fillRequired": "Fill Required Fields",
+    "successTitle": "Message Sent Successfully!",
+    "successMessage": "Thank you for reaching out. We'll get back to you within 24 hours."
   }
 }

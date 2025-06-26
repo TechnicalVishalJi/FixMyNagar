@@ -2,10 +2,16 @@
 
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Mail, Phone, MapPin, Send } from "lucide-react"
+import { Mail, Phone, MapPin, Send, Check, X } from "lucide-react"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import "./ContactPage.css"
+
+// Helper function to get current date and time
+const getCurrentDateTime = () => {
+  const now = new Date()
+  return now.toLocaleString()
+}
 
 export default function ContactPage() {
   const { t } = useTranslation(["contact", "common"])
@@ -14,16 +20,127 @@ export default function ContactPage() {
     email: "",
     message: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submissionStatus, setSubmissionStatus] = useState(null) // 'success', 'error', or null
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
+    // Clear submission status when user starts typing again
+    if (submissionStatus) {
+      setSubmissionStatus(null)
+    }
   }
 
-  const handleSubmit = (e) => {
+  const sendMessage = async () => {
+    const emailData = {
+      uname: formData.name,
+      email: formData.email,
+      message: formData.message,
+      time: getCurrentDateTime(),
+      fromContactForm: true,
+    }
+
+    emailData["message"] += "<br><br>" + "From : FixMyNagar Contact Form"
+
+    try {
+      const response = await fetch(import.meta.env.VITE_CONTACT_URL + "/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(emailData),
+      })
+
+      const result = await response.json()
+      if (result.success) {
+        setSubmissionStatus("success")
+        // Reset form after successful submission
+        setTimeout(() => {
+          setFormData({ name: "", email: "", message: "" })
+          setSubmissionStatus(null)
+        }, 3000)
+      } else {
+        setSubmissionStatus("error")
+        setTimeout(() => setSubmissionStatus(null), 5000)
+      }
+    } catch (error) {
+      setSubmissionStatus("error")
+      setTimeout(() => setSubmissionStatus(null), 5000)
+      console.error("Error:", error)
+    }
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log("Contact form submitted:", formData)
-    // Handle form submission here
-    setFormData({ name: "", email: "", message: "" })
+
+    // Basic validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setSubmissionStatus("validation")
+      setTimeout(() => setSubmissionStatus(null), 3000)
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmissionStatus(null)
+
+    await sendMessage()
+    setIsSubmitting(false)
+  }
+
+  const getButtonContent = () => {
+    if (isSubmitting) {
+      return (
+        <>
+          <div className="spinner"></div>
+          {t("contact:form.sending")}
+        </>
+      )
+    }
+
+    switch (submissionStatus) {
+      case "success":
+        return (
+          <>
+            <Check size={20} />
+            {t("contact:form.sent")}
+          </>
+        )
+      case "error":
+        return (
+          <>
+            <X size={20} />
+            {t("contact:form.failed")}
+          </>
+        )
+      case "validation":
+        return (
+          <>
+            <X size={20} />
+            {t("contact:form.fillRequired")}
+          </>
+        )
+      default:
+        return (
+          <>
+            <Send size={20} />
+            {t("common:buttons.sendMessage")}
+          </>
+        )
+    }
+  }
+
+  const getButtonClass = () => {
+    const baseClass = "submit-button"
+
+    switch (submissionStatus) {
+      case "success":
+        return `${baseClass} success`
+      case "error":
+      case "validation":
+        return `${baseClass} error`
+      default:
+        return baseClass
+    }
   }
 
   return (
@@ -96,6 +213,7 @@ export default function ContactPage() {
                     onChange={handleInputChange}
                     required
                     className="form-input"
+                    disabled={isSubmitting}
                   />
                 </div>
 
@@ -111,6 +229,7 @@ export default function ContactPage() {
                     onChange={handleInputChange}
                     required
                     className="form-input"
+                    disabled={isSubmitting}
                   />
                 </div>
 
@@ -126,14 +245,31 @@ export default function ContactPage() {
                     required
                     rows="6"
                     className="form-textarea"
+                    disabled={isSubmitting}
                   />
                 </div>
 
-                <button type="submit" className="submit-button">
-                  <Send size={20} />
-                  {t("common:buttons.sendMessage")}
+                <button
+                  type="submit"
+                  className={getButtonClass()}
+                  disabled={isSubmitting || submissionStatus === "success"}
+                >
+                  {getButtonContent()}
                 </button>
               </form>
+
+              {/* Success Message */}
+              {submissionStatus === "success" && (
+                <div className="form-success-message">
+                  <div className="success-icon">
+                    <Check size={24} />
+                  </div>
+                  <div className="success-content">
+                    <h3>{t("contact:form.successTitle")}</h3>
+                    <p>{t("contact:form.successMessage")}</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
