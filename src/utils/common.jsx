@@ -1,6 +1,6 @@
 export const isLoggedIn = async () => {
   try {
-    const response = await fetch('/api/auth/me', {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/me`, {
       method: 'GET',
       credentials: 'include', // Important: includes HTTP-only cookies
       headers: {
