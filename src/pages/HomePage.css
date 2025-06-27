@@ -4,7 +4,203 @@
   color: #000;
 }
 
-/* Hero Section */
+/* Mobile Hero Section */
+.mobile-hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1rem 4rem 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  z-index: 2;
+}
+
+.mobile-hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg,rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 90%, rgba(255, 255, 255, 1) 100%);
+  z-index: 1;
+}
+
+.mobile-hero-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="mobile-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0,0,0,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23mobile-grid)"/></svg>');
+  opacity: 0.7;
+  z-index: 0;
+}
+
+.mobile-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 400px;
+  margin: 0 auto;
+  transform: translateY(-1.5rem);
+}
+
+.hero-icon {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.icon-container {
+  width: 80px;
+  height: 80px;
+  background: #000;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.icon-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: icon-shimmer 3s infinite;
+}
+
+@keyframes icon-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.mobile-hero-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.mobile-hero-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.stat-item svg {
+  color: #000;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.primary-hero-button {
+  background: #000;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 280px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-hero-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.primary-hero-button:hover::before {
+  left: 100%;
+}
+
+.primary-hero-button:hover {
+  background: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.secondary-hero-button {
+  background: #fff;
+  color: #000;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  border: 2px solid #e5e5e5;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 280px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.secondary-hero-button:hover {
+  border-color: #000;
+  background: #f9f9f9;
+  transform: translateY(-1px);
+  color: #000;
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+}
+
+/* Desktop Hero Section */
 .hero-section {
   display: none;
   align-items: center;
@@ -96,7 +292,7 @@
 
 /* Posts Section */
 .posts-section {
-  padding-top: 8rem;
+  padding-top: 2rem;
   padding-bottom: 6rem;
 }
 
@@ -351,13 +547,18 @@
 
 /* Mobile Report Button */
 .mobile-report-button {
-  display: block;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   padding: 1rem;
   z-index: 40;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+.mobile-report-button.hidden {
+  transform: translateY(100%);
 }
 
 .report-button {
@@ -382,6 +583,10 @@
 
 /* Desktop Styles */
 @media (min-width: 768px) {
+  .mobile-hero-section {
+    display: none;
+  }
+
   .hero-section {
     display: flex;
   }

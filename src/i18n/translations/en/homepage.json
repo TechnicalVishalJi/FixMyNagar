@@ -4,6 +4,19 @@
     "subtitle": "Empowering citizens to identify and resolve public issues through simple reporting and collective action.",
     "description": "Together, we can build safer, cleaner, and well-maintained cities."
   },
+  "mobileHero": {
+    "title": "FixMyNagar",
+    "subtitle": "Join thousands of citizens making real change through civic engagement and collective action.",
+    "stats": {
+      "citizens": "10K+ Citizens",
+      "cities": "50+ Cities",
+      "resolved": "5K+ Resolved"
+    },
+    "buttons": {
+      "reportNow": "Report Now",
+      "learnMore": "Learn More"
+    }
+  },
   "posts": {
     "title": "Latest Posts",
     "subtitle": "In your area"

@@ -1,76 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { MessageCircle, ChevronUp, Flag, CheckCircle, Clock } from "lucide-react"
+import { Link } from "react-router-dom"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import ReportIssueModal from "../components/ReportIssueModal"
 import CommentBox from "../components/CommentBox"
 import "./HomePage.css"
-
-const mockPosts = [
-  {
-    id: 1,
-    image: "https://picsum.photos/400/300?random=1",
-    title: "Broken Street Light on Main Street",
-    address: "123 Main Street, Downtown",
-    upvotes: 124,
-    comments: 23,
-    isUpvoted: false,
-    status: "resolved",
-  },
-  {
-    id: 2,
-    image: "https://picsum.photos/400/250?random=2",
-    title: "Pothole Needs Immediate Repair",
-    address: "456 Oak Avenue, Uptown",
-    upvotes: 89,
-    comments: 15,
-    isUpvoted: true,
-    status: "unresolved",
-  },
-  {
-    id: 3,
-    image: "https://picsum.photos/400/350?random=3",
-    title: "Graffiti Removal Required",
-    address: "789 Pine Road, Midtown",
-    upvotes: 256,
-    comments: 42,
-    isUpvoted: false,
-    status: "resolved",
-  },
-  {
-    id: 4,
-    image: "https://picsum.photos/400/280?random=4",
-    title: "Damaged Park Bench",
-    address: "321 Elm Street, Suburbs",
-    upvotes: 67,
-    comments: 8,
-    isUpvoted: false,
-    status: "unresolved",
-  },
-  {
-    id: 5,
-    image: "https://picsum.photos/400/320?random=5",
-    title: "Overflowing Trash Bin",
-    address: "654 Maple Drive, City Center",
-    upvotes: 198,
-    comments: 31,
-    isUpvoted: true,
-    status: "resolved",
-  },
-  {
-    id: 6,
-    image: "https://picsum.photos/400/290?random=6",
-    title: "Broken Sidewalk Tiles",
-    address: "987 Cedar Lane, East Side",
-    upvotes: 145,
-    comments: 19,
-    isUpvoted: false,
-    status: "unresolved",
-  },
-]
 
 // Loading Skeleton Component
 const PostSkeleton = () => {
@@ -129,6 +67,8 @@ export default function HomePage() {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false)
   const [openComments, setOpenComments] = useState({})
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [showStickyButton, setShowStickyButton] = useState(false)
+  const mobileHeroRef = useRef(null)
 
   useEffect(() => {
     const handleResize = () => {
@@ -137,6 +77,27 @@ export default function HomePage() {
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
   }, [])
+
+  // Scroll detection for sticky button visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      if (mobileHeroRef.current && isMobile) {
+        const heroRect = mobileHeroRef.current.getBoundingClientRect()
+        const heroBottom = heroRect.bottom
+
+        // Show sticky button when hero section is scrolled out of view
+        setShowStickyButton(heroBottom < 0)
+      } else if (!isMobile) {
+        // Always show sticky button on desktop since there's no mobile hero
+        setShowStickyButton(false)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    handleScroll() // Check initial state
+
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [isMobile])
 
   const handleUpvote = async (postId) => {
     // Update the upvote state for the post on backend
@@ -229,6 +190,33 @@ export default function HomePage() {
     <div className="homepage">
       <Navbar />
 
+      {/* Mobile Hero Section */}
+      <div className="mobile-hero-section" ref={mobileHeroRef}>
+        <div className="mobile-hero-content">
+          {/* Hero Icon */}
+          <div className="hero-icon">
+            <div className="icon-container">
+              <img src="/src/assets/logo.png" alt="Logo" className="auth-logo-image" />
+            </div>
+          </div>
+
+          {/* Hero Text */}
+          <h1 className="mobile-hero-title">{t("homepage:mobileHero.title")}</h1>
+          <p className="mobile-hero-subtitle">{t("homepage:mobileHero.subtitle")}</p>
+
+          {/* Hero Buttons */}
+          <div className="hero-buttons">
+            <button className="primary-hero-button" onClick={() => setIsReportModalOpen(true)}>
+              {t("homepage:mobileHero.buttons.reportNow")}
+            </button>
+            <Link to="/about" className="secondary-hero-button">
+              {t("homepage:mobileHero.buttons.learnMore")}
+              <ChevronUp size={16} className="rotate-90" />
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* Desktop Hero Section */}
       <div id="heroSection" className="hero-section">
         <div className="hero-content">
@@ -307,13 +295,15 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Mobile Sticky Report Button */}
-      <div className="mobile-report-button">
-        <button className="report-button" onClick={() => setIsReportModalOpen(true)}>
-          <Flag size={20} />
-          {t("common:buttons.reportIssue")}
-        </button>
-      </div>
+      {/* Mobile Sticky Report Button - Only show when hero button is out of view */}
+      {isMobile && showStickyButton && (
+        <div className="mobile-report-button">
+          <button className="report-button" onClick={() => setIsReportModalOpen(true)}>
+            <Flag size={20} />
+            {t("common:buttons.reportIssue")}
+          </button>
+        </div>
+      )}
 
       <ReportIssueModal isOpen={isReportModalOpen} onClose={() => setIsReportModalOpen(false)} />
 
