@@ -74,7 +74,9 @@ const mockPosts = [
 
 export default function HomePage() {
   const { t } = useTranslation(["homepage", "common"])
-  const [posts, setPosts] = useState(mockPosts)
+  const [posts, setPosts] = useState([])
+  const [postsLoading, setPostsLoading] = useState(true);
+  const [postsError, setPostsError] = useState(null);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false)
   const [openComments, setOpenComments] = useState({})
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
@@ -87,27 +89,26 @@ export default function HomePage() {
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
-  const handleUpvote = (postId) => {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) =>
-        post.id === postId
-          ? {
-              ...post,
-              isUpvoted: !post.isUpvoted,
-              upvotes: post.isUpvoted ? post.upvotes - 1 : post.upvotes + 1,
-            }
-          : post,
-      ),
-    )
-  }
+  const handleUpvote = async (postId) => {
+    // Update the upvote state for the post on backend
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/issues/${postId}/upvote`, {
+      method: 'POST',
+      credentials: 'include', // if you use cookie-based auth
+    })
+    
+    if (!res.ok) {
+      throw new Error('Failed to upvote post')
+    }
 
-  const toggleStatus = (postId) => {
+    const data = await res.json();
+    console.log(data)
     setPosts((prevPosts) =>
       prevPosts.map((post) =>
         post.id === postId
           ? {
               ...post,
-              status: post.status === "resolved" ? "unresolved" : "resolved",
+              isUpvoted: data.isUpvoted,
+              upvotes: data.upvotes,
             }
           : post,
       ),
@@ -120,6 +121,60 @@ export default function HomePage() {
       [postId]: !prev[postId],
     }))
   }
+
+
+  useEffect(() => {
+    // Fetch posts from the backend
+    async function fetchPosts() {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/issues`, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          credentials: 'include' // if you use cookie-based auth
+        });
+
+        if (!res.ok) {
+          setPostsError(res.status)
+        }
+        const json = await res.json(); // parse JSON response :contentReference[oaicite:1]{index=1}
+        setPosts(json.posts);         // store array
+      } catch (err) {
+        console.error(err);
+        setPostsError(err.message);
+      } finally {
+        setPostsLoading(false);
+      }
+    }
+
+    fetchPosts();
+  }, []);
+
+  const handleAddComment = async (postId, text) => {
+    // Update state or send to backend
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/issues/${postId}/comment`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ comment: text })
+    });
+    let newComments = [];
+    if (res.ok) {
+      const data = await res.json();
+      newComments = data.comments;
+    }else{
+      throw new Error('Failed to add comment');
+    }
+
+    setPosts(prev =>
+      prev.map(p =>
+        p.id === postId ? {
+          ...p,
+          comments: newComments,
+        } : p
+      )
+    );
+  };
+
 
   return (
     <div className="homepage">
@@ -147,7 +202,7 @@ export default function HomePage() {
           </div>
 
           <div className="posts-grid">
-            {posts.map((post) => (
+            {postsLoading ? "<p>Loading posts...</p>" : postsError ? `<p>Error Loading Posts : ${postsError}</p>` : posts.map((post) => (
               <div key={post.id} className="post-card">
                 {/* Post Image */}
                 <div className="post-image">
@@ -171,7 +226,6 @@ export default function HomePage() {
                   </button>
 
                   <button
-                    onClick={() => toggleStatus(post.id)}
                     className={`action-button status-button ${post.status}`}
                   >
                     {post.status === "resolved" ? <CheckCircle size={18} /> : <Clock size={18} />}
@@ -180,7 +234,7 @@ export default function HomePage() {
 
                   <button className="action-button comment-button" onClick={() => toggleComments(post.id)}>
                     <MessageCircle size={18} />
-                    <span>{post.comments}</span>
+                    <span>{post.comments.length}</span>
                   </button>
                 </div>
                 {openComments[post.id] && (
@@ -188,6 +242,8 @@ export default function HomePage() {
                     isOpen={openComments[post.id]}
                     onClose={() => toggleComments(post.id)}
                     isMobile={isMobile}
+                    newComments={post.comments}
+                    onAddComment={(text) => handleAddComment(post.id, text)}
                   />
                 )}
               </div>

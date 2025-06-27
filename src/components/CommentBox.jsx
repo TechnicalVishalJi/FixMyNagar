@@ -20,26 +20,38 @@ const mockComments = [
   },
 ]
 
-export default function CommentBox({ isOpen, onClose, isMobile = false }) {
+export default function CommentBox({ isOpen, onClose, newComments, onAddComment, isMobile = false }) {
   const { t } = useTranslation("common")
-  const [newComment, setNewComment] = useState("")
-  const [comments, setComments] = useState(mockComments)
+  let comments = newComments.map((c, idx) => ({
+    ...c,
+    id: idx + 1
+  }));
+  let newComment = "";
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (newComment.trim()) {
-      const comment = {
-        id: comments.length + 1,
-        author: "You",
-        text: newComment,
-        time: "Just now",
-      }
-      setComments([...comments, comment])
-      setNewComment("")
+      onAddComment(newComment)
+      newComment = ""
     }
+  }
+  
+  // Helper to format time as "x minutes/hours ago"
+  function timeAgo(date) {
+    const now = new Date();
+    const then = new Date(date);
+    const diff = Math.floor((now - then) / 1000);
+
+    if (isNaN(diff) || diff < 0) return "";
+
+    if (diff < 60) return `${diff} seconds ago`;
+    if (diff < 3600) return `${Math.floor(diff / 60)} minutes ago`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)} hours ago`;
+    return `${Math.floor(diff / 86400)} days ago`;
   }
 
   if (!isOpen) return null
+
 
   const CommentContent = () => (
     <div className={`comment-box ${isMobile ? "mobile" : "desktop"}`}>
@@ -51,20 +63,19 @@ export default function CommentBox({ isOpen, onClose, isMobile = false }) {
       </div>
 
       <div className="comments-list">
-        {comments.map((comment) => (
-          <div key={comment.id} className="comment-item">
-            <div className="comment-author">{comment.author}</div>
-            <div className="comment-text">{comment.text}</div>
-            <div className="comment-time">{comment.time}</div>
+        {comments.length > 0 ? comments.map((comment) => (
+          <div className="comment-item" key={comment.id}>
+            <div className="comment-author">{comment.userName}</div>
+            <div className="comment-text">{comment.comment}</div>
+            <div className="comment-time">{timeAgo(comment.time)}</div>
           </div>
-        ))}
+        )) : <p>No comments yet!</p>}
       </div>
 
       <form onSubmit={handleSubmit} className="comment-form">
         <input
           type="text"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
+          onChange={(e) => newComment = e.target.value}
           placeholder="Add a comment..."
           className="comment-input"
         />
