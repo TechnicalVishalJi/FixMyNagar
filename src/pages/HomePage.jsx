@@ -72,11 +72,60 @@ const mockPosts = [
   },
 ]
 
+// Loading Skeleton Component
+const PostSkeleton = () => {
+  return (
+    <div className="post-card skeleton-card">
+      {/* Skeleton Image */}
+      <div className="post-image skeleton-image">
+        <div className="skeleton-shimmer"></div>
+      </div>
+
+      {/* Skeleton Content */}
+      <div className="post-content">
+        <div className="skeleton-title">
+          <div className="skeleton-line skeleton-line-long"></div>
+        </div>
+        <div className="skeleton-address">
+          <div className="skeleton-line skeleton-line-medium"></div>
+        </div>
+      </div>
+
+      {/* Skeleton Actions */}
+      <div className="post-actions">
+        <div className="skeleton-button">
+          <div className="skeleton-icon"></div>
+          <div className="skeleton-text"></div>
+        </div>
+        <div className="skeleton-button">
+          <div className="skeleton-icon"></div>
+          <div className="skeleton-text"></div>
+        </div>
+        <div className="skeleton-button">
+          <div className="skeleton-icon"></div>
+          <div className="skeleton-text"></div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Loading Grid Component
+const LoadingGrid = () => {
+  return (
+    <div className="posts-grid">
+      {[...Array(6)].map((_, index) => (
+        <PostSkeleton key={index} />
+      ))}
+    </div>
+  )
+}
+
 export default function HomePage() {
   const { t } = useTranslation(["homepage", "common"])
   const [posts, setPosts] = useState([])
-  const [postsLoading, setPostsLoading] = useState(true);
-  const [postsError, setPostsError] = useState(null);
+  const [postsLoading, setPostsLoading] = useState(true)
+  const [postsError, setPostsError] = useState(null)
   const [isReportModalOpen, setIsReportModalOpen] = useState(false)
   const [openComments, setOpenComments] = useState({})
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
@@ -92,15 +141,15 @@ export default function HomePage() {
   const handleUpvote = async (postId) => {
     // Update the upvote state for the post on backend
     const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/issues/${postId}/upvote`, {
-      method: 'POST',
-      credentials: 'include', // if you use cookie-based auth
+      method: "POST",
+      credentials: "include", // if you use cookie-based auth
     })
-    
+
     if (!res.ok) {
-      throw new Error('Failed to upvote post')
+      throw new Error("Failed to upvote post")
     }
 
-    const data = await res.json();
+    const data = await res.json()
     console.log(data)
     setPosts((prevPosts) =>
       prevPosts.map((post) =>
@@ -122,59 +171,59 @@ export default function HomePage() {
     }))
   }
 
-
   useEffect(() => {
     // Fetch posts from the backend
     async function fetchPosts() {
       try {
         const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/issues`, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          credentials: 'include' // if you use cookie-based auth
-        });
+          method: "POST",
+          headers: { Accept: "application/json" },
+          credentials: "include", // if you use cookie-based auth
+        })
 
         if (!res.ok) {
           setPostsError(res.status)
         }
-        const json = await res.json(); // parse JSON response :contentReference[oaicite:1]{index=1}
-        setPosts(json.posts);         // store array
+        const json = await res.json()
+        setPosts(json.posts)
       } catch (err) {
-        console.error(err);
-        setPostsError(err.message);
+        console.error(err)
+        setPostsError(err.message)
       } finally {
-        setPostsLoading(false);
+        setPostsLoading(false)
       }
     }
 
-    fetchPosts();
-  }, []);
+    fetchPosts()
+  }, [])
 
   const handleAddComment = async (postId, text) => {
     // Update state or send to backend
     const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/issues/${postId}/comment`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ comment: text })
-    });
-    let newComments = [];
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ comment: text }),
+    })
+    let newComments = []
     if (res.ok) {
-      const data = await res.json();
-      newComments = data.comments;
-    }else{
-      throw new Error('Failed to add comment');
+      const data = await res.json()
+      newComments = data.comments
+    } else {
+      throw new Error("Failed to add comment")
     }
 
-    setPosts(prev =>
-      prev.map(p =>
-        p.id === postId ? {
-          ...p,
-          comments: newComments,
-        } : p
-      )
-    );
-  };
-
+    setPosts((prev) =>
+      prev.map((p) =>
+        p.id === postId
+          ? {
+              ...p,
+              comments: newComments,
+            }
+          : p,
+      ),
+    )
+  }
 
   return (
     <div className="homepage">
@@ -201,54 +250,60 @@ export default function HomePage() {
             <p className="posts-subtitle">{t("homepage:posts.subtitle")}</p>
           </div>
 
-          <div className="posts-grid">
-            {postsLoading ? "<p>Loading posts...</p>" : postsError ? `<p>Error Loading Posts : ${postsError}</p>` : posts.map((post) => (
-              <div key={post.id} className="post-card">
-                {/* Post Image */}
-                <div className="post-image">
-                  <img src={post.image || "/placeholder.svg"} alt={post.title} />
+          {postsLoading ? (
+            <LoadingGrid />
+          ) : postsError ? (
+            <div className="error-message">
+              <p>Error Loading Posts: {postsError}</p>
+            </div>
+          ) : (
+            <div className="posts-grid">
+              {posts.map((post) => (
+                <div key={post.id} className="post-card">
+                  {/* Post Image */}
+                  <div className="post-image">
+                    <img src={post.image || "/placeholder.svg"} alt={post.title} />
+                  </div>
+
+                  {/* Post Content */}
+                  <div className="post-content">
+                    <h3 className="post-title">{post.title}</h3>
+                    <p className="post-address">{post.address}</p>
+                  </div>
+
+                  {/* Post Actions */}
+                  <div className="post-actions">
+                    <button
+                      onClick={() => handleUpvote(post.id)}
+                      className={`action-button upvote-button ${post.isUpvoted ? "upvoted" : ""}`}
+                    >
+                      <ChevronUp size={18} className={post.isUpvoted ? "filled" : ""} />
+                      <span>{post.upvotes}</span>
+                    </button>
+
+                    <button className={`action-button status-button ${post.status}`}>
+                      {post.status === "resolved" ? <CheckCircle size={18} /> : <Clock size={18} />}
+                      <span>{t(`common:status.${post.status}`)}</span>
+                    </button>
+
+                    <button className="action-button comment-button" onClick={() => toggleComments(post.id)}>
+                      <MessageCircle size={18} />
+                      <span>{post.comments.length}</span>
+                    </button>
+                  </div>
+                  {openComments[post.id] && (
+                    <CommentBox
+                      isOpen={openComments[post.id]}
+                      onClose={() => toggleComments(post.id)}
+                      isMobile={isMobile}
+                      newComments={post.comments}
+                      onAddComment={(text) => handleAddComment(post.id, text)}
+                    />
+                  )}
                 </div>
-
-                {/* Post Content */}
-                <div className="post-content">
-                  <h3 className="post-title">{post.title}</h3>
-                  <p className="post-address">{post.address}</p>
-                </div>
-
-                {/* Post Actions */}
-                <div className="post-actions">
-                  <button
-                    onClick={() => handleUpvote(post.id)}
-                    className={`action-button upvote-button ${post.isUpvoted ? "upvoted" : ""}`}
-                  >
-                    <ChevronUp size={18} className={post.isUpvoted ? "filled" : ""} />
-                    <span>{post.upvotes}</span>
-                  </button>
-
-                  <button
-                    className={`action-button status-button ${post.status}`}
-                  >
-                    {post.status === "resolved" ? <CheckCircle size={18} /> : <Clock size={18} />}
-                    <span>{t(`common:status.${post.status}`)}</span>
-                  </button>
-
-                  <button className="action-button comment-button" onClick={() => toggleComments(post.id)}>
-                    <MessageCircle size={18} />
-                    <span>{post.comments.length}</span>
-                  </button>
-                </div>
-                {openComments[post.id] && (
-                  <CommentBox
-                    isOpen={openComments[post.id]}
-                    onClose={() => toggleComments(post.id)}
-                    isMobile={isMobile}
-                    newComments={post.comments}
-                    onAddComment={(text) => handleAddComment(post.id, text)}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
