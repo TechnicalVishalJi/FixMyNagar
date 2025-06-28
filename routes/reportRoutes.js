@@ -10,14 +10,13 @@ router.post('/issues', getNearbyIssues);
 router.post('/issues/:id/upvote', upVote);
 router.post('/issues/:id/comment', addComment);
 router.get('/cron', (req, res) => {
-    res.status(200).HTML(`
+    res.send(`
         <html>
             <head>
                 <title>FixMyNagar - Cron Job</title>
             </head>
             <body>
                 <h1>Cron job executed successfully!</h1>
-                <p>This is a placeholder response for the cron job endpoint.</p>
             </body>
         </html>
     `);
