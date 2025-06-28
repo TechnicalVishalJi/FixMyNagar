@@ -4,12 +4,34 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'Segoe UI Font';
+  font-style: normal;
+  font-weight: bold;
+  src: url(assets/SegoeUIBold.woff);
+}
+
+@font-face {
+  font-family: 'Segoe UI Font';
+  font-style: normal;
+  font-weight: normal;
+  src: url(assets/SegoeUI.woff);
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: "Segoe UI", 'Segoe UI Font', "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}
+
 
 .App {
   min-height: 100vh;

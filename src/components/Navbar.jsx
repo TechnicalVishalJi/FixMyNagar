@@ -25,7 +25,7 @@ export default function Navbar() {
 
   // Check login status on component mount and when needed
   useEffect(() => {
-    isLoggedIn().then((status) => {setUserLoggedIn(Boolean(status));console.log(userLoggedIn ? "User is logged in" : "User is not logged in")})
+    isLoggedIn().then((status) => {setUserLoggedIn(Boolean(status));})
   }, [isLoggedIn])
 
   // Close dropdown when clicking outside

@@ -86,7 +86,7 @@ export default function HomePage() {
         const heroBottom = heroRect.bottom
 
         // Show sticky button when hero section is scrolled out of view
-        setShowStickyButton(heroBottom < 0)
+        setShowStickyButton(heroBottom < 200)
       } else if (!isMobile) {
         // Always show sticky button on desktop since there's no mobile hero
         setShowStickyButton(false)

@@ -1,6 +1,6 @@
 .auth-page {
   min-height: 100vh;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
 }
 
 /* Mobile View */
@@ -61,6 +61,7 @@
 }
 
 .google-button {
+  font-family: inherit;
   width: 100%;
   display: flex;
   align-items: center;
@@ -96,29 +97,30 @@
 
 .divider-text {
   padding: 0 0.5rem;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   color: #666;
   font-size: 0.875rem;
 }
 
-.input-group {
+.auth-form .input-group {
   margin-bottom: 1.5rem;
 }
 
-.input-wrapper {
+.auth-form .input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.input-icon {
+.auth-form .input-icon {
   position: absolute;
   left: 1rem;
   color: #666;
   z-index: 1;
 }
 
-.form-input {
+.auth-form .form-input {
+  font-family: inherit;
   width: 100%;
   padding: 1rem 1.5rem 1rem 3rem;
   background-color: #f3f4f6;
@@ -129,22 +131,22 @@
   transition: all 0.3s ease;
 }
 
-.form-input::placeholder {
+.auth-form .form-input::placeholder {
   color: #666;
 }
 
-.form-input:focus {
+.auth-form .form-input:focus {
   outline: none;
   border-color: #000;
   background-color: #fff;
 }
 
-.form-input.error {
+.auth-form .form-input.error {
   border-color: #dc2626;
   background-color: #fef2f2;
 }
 
-.form-input:disabled {
+.auth-form .form-input:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
@@ -192,6 +194,7 @@
 }
 
 .otp-button {
+  font-family: inherit;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -235,6 +238,7 @@
 }
 
 .resend-link {
+  font-family: inherit;
   background: none;
   border: none;
   color: #000;
@@ -254,6 +258,7 @@
 }
 
 .continue-button {
+  font-family: inherit;
   width: 100%;
   background-color: #000;
   color: #fff;
@@ -351,6 +356,7 @@
 }
 
 .toggle-button {
+  font-family: inherit;
   color: #000;
   font-weight: 600;
   background: none;

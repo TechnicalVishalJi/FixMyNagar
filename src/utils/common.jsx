@@ -7,7 +7,7 @@ export const isLoggedIn = async () => {
     //   }, [navigate])
   try {
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/me`, {
-      method: 'GET',
+      method: 'POST',
       credentials: 'include', // Important: includes HTTP-only cookies
       headers: {
         'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export const isLoggedIn = async () => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log('User is logged in:', data.user);
+      // console.log('User is logged in:', data.user);
       return data.user;
     } else {
       console.log('User is not logged in or session expired');
@@ -24,6 +24,29 @@ export const isLoggedIn = async () => {
     }
   } catch (error) {
     console.error('Auth check failed:', error);
+    return false;
+  }
+};
+
+export const getAdminStatus = async () => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/auth/me`, {
+      method: 'POST',
+      credentials: 'include', // Important: includes HTTP-only cookies
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Admin status:', data.admin);
+      return data.admin;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error('Admin status check failed:', error);
     return false;
   }
 };

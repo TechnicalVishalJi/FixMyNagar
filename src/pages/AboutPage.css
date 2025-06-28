@@ -17,9 +17,9 @@
 
 /* Hero Section */
 .about-hero {
-  background: linear-gradient(135deg, #f9f9f9, #fff);
   padding: 2rem 0;
   text-align: center;
+  min-height: 70vh;
 }
 
 .hero-content {
