@@ -7,6 +7,7 @@ import { Link } from "react-router-dom"
 import LanguageSwitcher from "./LanguageSwitcher"
 import { isLoggedIn } from "../utils/common"
 import "./Navbar.css"
+import siteLogo from "../assets/logo.png"
 
 export default function Navbar() {
   const { t } = useTranslation("common")
@@ -95,7 +96,7 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="navbar-content">
         <div className="logo">
-          <img src="../assets/logo.png" alt="Logo" className="logo-image" />
+          <img src={siteLogo} alt="Logo" className="logo-image" />
         </div>
 
         <div className="desktop-menu">

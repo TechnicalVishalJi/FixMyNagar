@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next"
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react"
 import "./Footer.css"
 import { Link } from "react-router-dom"
+import siteLogo from "../assets/logo.png"
 
 export default function Footer() {
   const { t } = useTranslation("common")
@@ -13,7 +14,7 @@ export default function Footer() {
           {/* Company Info */}
           <div className="footer-section">
             <div className="footer-logo">
-              <img src="../assets/logo.png" alt="Logo" className="footer-logo-image" />
+              <img src={siteLogo} alt="Logo" className="footer-logo-image" />
             </div>
             <p className="footer-description">{t("footer.description")}</p>
             <div className="social-links">

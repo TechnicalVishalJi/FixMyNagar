@@ -10,6 +10,7 @@ import Navbar from "../components/Navbar"
 import ReportIssueModal from "../components/ReportIssueModal"
 import CommentBox from "../components/CommentBox"
 import "./HomePage.css"
+import siteLogo from "../assets/logo.png"
 
 // Loading Skeleton Component
 const PostSkeleton = () => {
@@ -197,7 +198,7 @@ export default function HomePage() {
           {/* Hero Icon */}
           <div className="hero-icon">
             <div className="icon-container">
-              <img src="../assets/logo.png" alt="Logo" className="auth-logo-image" />
+              <img src={siteLogo} alt="Logo" className="auth-logo-image" />
             </div>
           </div>
 

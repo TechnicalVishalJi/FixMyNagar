@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { Mail, User, Shield, Send, Check, X, Eye, EyeOff } from "lucide-react"
 import "./AuthPage.css"
 import { isLoggedIn } from "../utils/common"
+import siteLogo from "../assets/logo.png"
 
 export default function AuthPage() {
   const { t } = useTranslation("auth")
@@ -175,7 +176,7 @@ export default function AuthPage() {
           {/* Logo */}
           <div className="logo-section">
             <div className="logo-icon">
-              <img src="../assets/logo.png" alt="Logo" className="auth-logo-image" />
+              <img src={siteLogo} alt="Logo" className="auth-logo-image" />
             </div>
           </div>
 
@@ -363,7 +364,7 @@ export default function AuthPage() {
             {/* Logo */}
             <div className="desktop-logo-section">
               <div className="desktop-logo-icon">
-                <img src="../assets/logo.png" alt="Logo" className="auth-logo-image-desktop" />
+                <img src={siteLogo} alt="Logo" className="auth-logo-image-desktop" />
               </div>
             </div>
 
