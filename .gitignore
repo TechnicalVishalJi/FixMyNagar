@@ -1,0 +1,4 @@
+//Generate node_modules by running command npm install
+
+node_modules/
+.env
