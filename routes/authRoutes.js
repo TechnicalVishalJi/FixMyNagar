@@ -104,7 +104,6 @@ router.post('/auth/signup/verify', async (req, res) => {
     secure: true,
     sameSite: 'None',
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    domain: 'fixmynagar.vercel.app'
   });
 
   res.json({ user: { id: user._id, name: user.name, email: user.email } });
@@ -145,7 +144,6 @@ router.post('/auth/login/verify', async (req, res) => {
     secure: true,
     sameSite: 'None',
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    domain: 'fixmynagar.vercel.app'
   });
 
   res.json({ user: { id: user._id, name: user.name, email: user.email } });
