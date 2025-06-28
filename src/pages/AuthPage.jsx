@@ -175,7 +175,7 @@ export default function AuthPage() {
           {/* Logo */}
           <div className="logo-section">
             <div className="logo-icon">
-              <img src="/src/assets/logo.png" alt="Logo" className="auth-logo-image" />
+              <img src="../assets/logo.png" alt="Logo" className="auth-logo-image" />
             </div>
           </div>
 
@@ -363,7 +363,7 @@ export default function AuthPage() {
             {/* Logo */}
             <div className="desktop-logo-section">
               <div className="desktop-logo-icon">
-                <img src="/src/assets/logo.png" alt="Logo" className="auth-logo-image-desktop" />
+                <img src="../assets/logo.png" alt="Logo" className="auth-logo-image-desktop" />
               </div>
             </div>
 

@@ -13,7 +13,7 @@ export default function Footer() {
           {/* Company Info */}
           <div className="footer-section">
             <div className="footer-logo">
-              <img src="/src/assets/logo.png" alt="Logo" className="footer-logo-image" />
+              <img src="../assets/logo.png" alt="Logo" className="footer-logo-image" />
             </div>
             <p className="footer-description">{t("footer.description")}</p>
             <div className="social-links">

@@ -197,7 +197,7 @@ export default function HomePage() {
           {/* Hero Icon */}
           <div className="hero-icon">
             <div className="icon-container">
-              <img src="/src/assets/logo.png" alt="Logo" className="auth-logo-image" />
+              <img src="../assets/logo.png" alt="Logo" className="auth-logo-image" />
             </div>
           </div>
 

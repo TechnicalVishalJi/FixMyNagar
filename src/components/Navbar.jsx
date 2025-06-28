@@ -95,7 +95,7 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="navbar-content">
         <div className="logo">
-          <img src="/src/assets/logo.png" alt="Logo" className="logo-image" />
+          <img src="../assets/logo.png" alt="Logo" className="logo-image" />
         </div>
 
         <div className="desktop-menu">
