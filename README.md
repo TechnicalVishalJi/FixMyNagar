@@ -63,10 +63,8 @@ e.g., {
 
 ##  Tech Stack
 - Node.js + Express.js
-- (Optionally MongoDB when DB is connected)
 - Multer for file upload
 - Cloudinary for image storage (future)
-- In-memory storage used for demo (no DB needed, DB is not connected)
 ---
 
 ##  Testing (Hoppscotch)
@@ -90,6 +88,5 @@ index.js
 
 ---
 
-##  Contributors
 
 
