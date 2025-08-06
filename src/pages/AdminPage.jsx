@@ -173,6 +173,12 @@ export default function AdminPage() {
     )
   }
 
+  const customIcon = new L.Icon({
+    iconUrl: require('../assets/gps.png'),
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+  });
+
   useEffect(() => {
     if(!isAdmin){return;}
     // Prevent reinitialization if map already exists
