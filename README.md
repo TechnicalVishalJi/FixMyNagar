@@ -195,21 +195,6 @@ The Android app provides native mobile experience with:
 5. **Mobile-Optimized**: Lightweight AI models for real-time mobile inference
 6. **Passwordless Security**: OTP-based authentication reduces security vulnerabilities
 
-## 🤝 Contributing
-
-We welcome contributions from the community! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on:
-- Code standards and best practices
-- Issue reporting and feature requests  
-- Pull request process and review guidelines
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Team
-
-Built with ❤️ for creating transparent, accountable civic infrastructure.
-
----
+7. 
 
 **FixMyNagar** - Because every neighborhood deserves better infrastructure! 🏘️✨
