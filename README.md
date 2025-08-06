@@ -23,7 +23,7 @@ Upload a civic issue with location, image, and description.
 ###  Get All Issues
 `GET /api/issues`  
 (http://localhost:5000/api/issues)
-Returns all reported issues (can later be filtered by location).
+Returns all reported issues (can later be filtered by location)
 
 ---
 
