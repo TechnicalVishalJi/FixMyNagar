@@ -195,7 +195,7 @@ export default function AdminPage() {
 
     posts.forEach(post => {
       if(post.location?.lat && post.location?.lng) {
-        L.marker([post?.location?.lat, post?.location?.lng])
+        L.marker([post?.location?.lat, post?.location?.lng], { icon: customIcon })
           .addTo(map)
           .bindPopup(`
             <strong>${post.category}</strong><br/>
