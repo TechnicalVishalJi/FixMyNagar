@@ -30,7 +30,7 @@ Returns all reported issues (can later be filtered by location)
 ###  Upvote an Issue
 `POST /api/issues/:id/vote`  
 (http://localhost:5000/api/issues/1/vote)
-Increments vote count for a report.
+Increments vote count for a report
 
 ---
 
