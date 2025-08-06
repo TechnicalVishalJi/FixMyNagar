@@ -1,60 +1,7 @@
-// const Report = require('../models/Report');
-// const Comment = require('../models/Comment');
-// const cloudinary = require('../config/cloudinary');
-
-// const classifyImage = async (url) => {
-//   return { category: 'pothole', confidence: 0.9 };
-// };
-
-// exports.createReport = async (req, res) => {
-//   try {
-//     const file = req.file;
-//     const { lat, lng, address, description } = req.body;
-
-//     const result = await cloudinary.uploader.upload(file.path);
-//     const aiResult = await classifyImage(result.secure_url);
-
-//     const report = new Report({
-//       imageUrl: result.secure_url,
-//       publicId: result.public_id,
-//       category: aiResult.category,
-//       location: { lat, lng, address },
-//       description,
-//     });
-
-//     await report.save();
-//     res.status(201).json(report);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-// exports.voteReport = async (req, res) => {
-//   const report = await Report.findById(req.params.id);
-//   report.votes += 1;
-//   await report.save();
-//   res.json(report);
-// };
-
-// exports.addComment = async (req, res) => {
-//   const { text, user } = req.body;
-//   const comment = new Comment({ reportId: req.params.id, text, user });
-//   await comment.save();
-
-//   await Report.findByIdAndUpdate(req.params.id, { $push: { comments: comment._id } });
-//   res.json(comment);
-// };
-
-// exports.getNearbyIssues = async (req, res) => {
-//   const { lat, lng, radius } = req.query;
-//   const reports = await Report.find(); // Later: Add geospatial filtering
-//   res.json(reports);
-// };
-
-
 const Post = require('../models/Report');
 const User = require('../models/User');
 const cloudinary = require('../config/cloudinary');
+const classifyImage = require('../aiModel/predict');
 const jwt = require('jsonwebtoken');
 
 
@@ -114,7 +61,6 @@ exports.createReport = async (req, res) => {
 
   try {
     let { lat, lng, address, description} = req.body;
-    const file = req.file;
 
     const { imageUrl, publicId } = await uploadToCloudinary(req.file.buffer);
 
@@ -128,7 +74,7 @@ exports.createReport = async (req, res) => {
       }
     }
 
-    const aiResult = { category: 'pothole', confidence: 0.9 }; 
+    const aiResult = await classifyImage(req.file.buffer);
 
     await Post.create({
       userName: user.name,
@@ -152,6 +98,15 @@ exports.createReport = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.classifyImageUsingAI = async (req, res) => {
+  const file = req.file;
+  if (!file) {
+    return res.status(400).json({ error: 'No image file provided' });
+  }
+  const result = await classifyImage(file.buffer);
+  res.json({ category: result.category });
+}
 
 exports.getNearbyIssues = async (req, res) => {
   const token = req.cookies.token;
